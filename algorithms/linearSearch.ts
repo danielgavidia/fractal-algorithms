@@ -1,12 +1,12 @@
-type LinearSearchProps = {
+interface LinearSearchProps {
 	list: any[];
 	target: any;
 	index: number;
-};
+}
 
-const list = [1, "potato", { key: "value" }, undefined, 6, 3, "tomato", 10];
-const target = "tomato";
-const index: number = 0;
+const exampleList = [1, "potato", { key: "value" }, undefined, 6, 3, "tomato", 10];
+const exampleTarget = "tomato";
+const exampleIndex: number = 0;
 
 const linearSearch = ({ list, target, index }: LinearSearchProps) => {
 	if (list[index] === target) {
@@ -18,4 +18,4 @@ const linearSearch = ({ list, target, index }: LinearSearchProps) => {
 	return linearSearch({ list: list, target: target, index: index + 1 });
 };
 
-console.log(linearSearch({ list, target, index }));
+console.log(linearSearch({ list: exampleList, target: exampleTarget, index: exampleIndex }));
