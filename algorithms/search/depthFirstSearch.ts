@@ -23,18 +23,15 @@ const depthFirstSearch = ({ graph, target, startNode }: DepthFirstSearchProps) =
 	while (stack.length > 0) {
 		const currentNode = stack.pop()!;
 		if (currentNode === target) {
-			console.log(`Visited node: ${currentNode}`);
 			return true;
 		}
 
 		if (!visited.has(currentNode)) {
 			visited.add(currentNode);
-			console.log(`Visited node: ${currentNode}`);
 
 			const neighbors = graph[currentNode] || [];
 			for (const neighbor of neighbors) {
 				if (!visited.has(neighbor)) {
-					console.log(`Neighbor: ${neighbor}`);
 					stack.push(neighbor);
 				}
 			}
