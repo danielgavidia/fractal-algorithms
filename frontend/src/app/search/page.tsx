@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Linear from "./components/Linear";
+import Binary from "./components/Binary";
 
 const page = () => {
 	const [list, setList] = useState<number[]>([54, 4, 27, 36, 22]);
@@ -69,6 +70,13 @@ const page = () => {
 			{start && mode === "linear" ? (
 				<>
 					<Linear start={start} list={list} target={target} />
+				</>
+			) : (
+				<></>
+			)}
+			{start && mode === "binary" ? (
+				<>
+					<Binary start={start} list={list} target={target} />
 				</>
 			) : (
 				<></>
