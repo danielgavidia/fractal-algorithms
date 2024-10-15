@@ -8,7 +8,7 @@ type Node = {
 };
 
 const exampleList = [1, 3, 4, 6, 7, 8, 10, 13, 14, 18, 19, 21, 24, 37, 40, 45, 71];
-const exampleTarget = 24;
+const exampleTarget = 3;
 
 const binarySearch = (node: Node) => {
 	const { list, target, L, R, success } = node;
@@ -24,12 +24,12 @@ const binarySearch = (node: Node) => {
 
 	// If we get a match, return final node
 	if (list[m] === target) {
-		return { ...node, L: LDefined, R: RDefined, success: true };
+		return { ...node, L: LDefined, R: RDefined, m, success: true };
 	}
 
 	// If L < R, return failure
 	if (LDefined > RDefined) {
-		return { ...node, L: LDefined, R: RDefined, success: false };
+		return { ...node, L: LDefined, R: RDefined, m, success: false };
 	}
 
 	// Recursively call the function and set the 'childNode'
@@ -50,10 +50,9 @@ const binarySearch = (node: Node) => {
 			R: m - 1,
 			success: successDefined,
 		});
-		return { ...node, childNode };
 	}
 
-	return { ...node, L: LDefined, R: RDefined, childNode };
+	return { ...node, L: LDefined, R: RDefined, m, childNode };
 };
 
 console.log(binarySearch({ list: exampleList, target: exampleTarget }));
