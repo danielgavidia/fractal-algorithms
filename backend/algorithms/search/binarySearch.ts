@@ -7,10 +7,7 @@ type Node = {
 	childNode?: Node; // Child node
 };
 
-const exampleList = [1, 3, 4, 6, 7, 8, 10, 13, 14, 18, 19, 21, 24, 37, 40, 45, 71];
-const exampleTarget = 3;
-
-const binarySearch = (node: Node) => {
+export const binarySearch = (node: Node) => {
 	const { list, target, L, R, success } = node;
 
 	// Defaults
@@ -54,5 +51,3 @@ const binarySearch = (node: Node) => {
 
 	return { ...node, L: LDefined, R: RDefined, m, childNode };
 };
-
-console.log(binarySearch({ list: exampleList, target: exampleTarget }));
