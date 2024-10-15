@@ -3,11 +3,12 @@ type Node = {
 	target: number; // The target number
 	L?: number; // The left bound
 	R?: number; // The right bound
+	m?: number;
 	success?: boolean;
 	childNode?: Node; // Child node
 };
 
-export const binarySearch = (node: Node) => {
+const binarySearchAlgo = (node: Node): Node => {
 	const { list, target, L, R, success } = node;
 
 	// Defaults
@@ -30,9 +31,10 @@ export const binarySearch = (node: Node) => {
 	}
 
 	// Recursively call the function and set the 'childNode'
-	let childNode = {};
+	let childNode: Node = { ...node };
+
 	if (list[m] < target) {
-		childNode = binarySearch({
+		childNode = binarySearchAlgo({
 			list,
 			target,
 			L: m + 1,
@@ -40,7 +42,7 @@ export const binarySearch = (node: Node) => {
 			success: successDefined,
 		});
 	} else if (list[m] > target) {
-		childNode = binarySearch({
+		childNode = binarySearchAlgo({
 			list,
 			target,
 			L: LDefined,
@@ -49,5 +51,37 @@ export const binarySearch = (node: Node) => {
 		});
 	}
 
-	return { ...node, L: LDefined, R: RDefined, m, childNode };
+	return { ...node, L: LDefined, R: RDefined, success: successDefined, m, childNode };
+};
+
+const binarySearchDecode = (node: Node, array: Node[]): Node[] => {
+	if (node.childNode === undefined) {
+		let newArr = [...array];
+		newArr.push({
+			list: node.list,
+			target: node.target,
+			L: node.L,
+			R: node.R,
+			m: node.m,
+			success: node.success,
+		});
+		return newArr;
+	} else {
+		let newArr = [...array];
+		newArr.push({
+			list: node.list,
+			target: node.target,
+			L: node.L,
+			R: node.R,
+			m: node.m,
+			success: node.success,
+		});
+		return binarySearchDecode(node.childNode, newArr);
+	}
+};
+
+export const binarySearch = (node: Node): Node[] => {
+	const nodes = binarySearchAlgo(node);
+	const nodesDecoded = binarySearchDecode(nodes, []);
+	return nodesDecoded;
 };

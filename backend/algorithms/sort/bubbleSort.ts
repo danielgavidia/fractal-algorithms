@@ -7,7 +7,7 @@ type Node = {
 	childNode?: Node;
 };
 
-export const bubbleSort = (node: Node) => {
+export const bubbleSort = (node: Node): Node => {
 	const { list, index, swapCount, iteration, success } = node;
 
 	// Defaults
@@ -22,7 +22,7 @@ export const bubbleSort = (node: Node) => {
 	}
 
 	// Start childnode
-	let childNode = {};
+	let childNode: Node = { ...node };
 
 	// If end of list iteration but swaps > 0, restart and mark failure
 	if (indexDefined === list.length - 1 && swapCountDefined > 0) {
