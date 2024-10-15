@@ -1,5 +1,3 @@
-const exampleList = [64, 25, 12, 22, 11, 5, 37];
-
 type Node = {
 	list: number[];
 	index?: number;
@@ -9,7 +7,7 @@ type Node = {
 	childNode?: Node;
 };
 
-const selectionSort = (node: Node): Node => {
+export const selectionSort = (node: Node): Node => {
 	const { list, index, indexLowest, iteration, success } = node;
 
 	// Defaults
@@ -66,5 +64,3 @@ const selectionSort = (node: Node): Node => {
 
 	return { ...node, childNode };
 };
-
-console.log(JSON.stringify(selectionSort({ list: exampleList }), null, 2));

@@ -6,10 +6,7 @@ type Node = {
 	childNode?: Node;
 };
 
-const exampleList = [1, "potato", "turkey", undefined, 6, 3, "tomato", 10];
-const exampleTarget = "tomato";
-
-const linearSearch = (node: Node) => {
+const linearSearchAlgo = (node: Node) => {
 	const { list, target, index, success } = node;
 
 	// Defaults
@@ -28,7 +25,7 @@ const linearSearch = (node: Node) => {
 	}
 
 	// Recursively call the function and set the 'childNode'
-	const childNode: Node = linearSearch({
+	const childNode: Node = linearSearchAlgo({
 		list,
 		target,
 		index: indexDefined + 1,
@@ -42,4 +39,30 @@ const linearSearch = (node: Node) => {
 	};
 };
 
-console.log(linearSearch({ list: exampleList, target: exampleTarget }));
+const linearSearchDecode = (node: Node, array: Node[]): Node[] => {
+	if (node.childNode === undefined) {
+		let newArr = [...array];
+		newArr.push({
+			list: node.list,
+			target: node.target,
+			index: node.index,
+			success: node.success,
+		});
+		return newArr;
+	} else {
+		let newArr = [...array];
+		newArr.push({
+			list: node.list,
+			target: node.target,
+			index: node.index,
+			success: node.success,
+		});
+		return linearSearchDecode(node.childNode, newArr);
+	}
+};
+
+export const linearSearch = (node: Node): Node[] => {
+	const nodes = linearSearchAlgo(node);
+	const nodesDecoded = linearSearchDecode(nodes, []);
+	return nodesDecoded;
+};
