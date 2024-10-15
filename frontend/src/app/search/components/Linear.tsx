@@ -13,6 +13,9 @@ interface LinearProps {
 	start: boolean;
 	list: number[];
 	target: number;
+	currentIndex: number;
+	handleSetCurrentIndex: (index: number) => void;
+	handleSetStart: (bool: boolean) => void;
 }
 
 const getAlgoOutput = async (list: number[], target: number): Promise<Node[]> => {
@@ -27,9 +30,15 @@ const getAlgoOutput = async (list: number[], target: number): Promise<Node[]> =>
 	return res.data;
 };
 
-const Linear = ({ start, list, target }: LinearProps) => {
+const Linear = ({
+	start,
+	list,
+	target,
+	currentIndex,
+	handleSetCurrentIndex,
+	handleSetStart,
+}: LinearProps) => {
 	const [algoOutput, setAlgoOutput] = useState<Node[] | null>(null);
-	const [currentIndex, setCurrentIndex] = useState<number>(0);
 
 	useEffect(() => {
 		if (start) {
@@ -39,14 +48,18 @@ const Linear = ({ start, list, target }: LinearProps) => {
 			};
 			fetch();
 		}
-	}, []);
+	}, [start]);
 
 	useEffect(() => {
 		if (algoOutput !== null && currentIndex < algoOutput.length - 1) {
 			const timer = setTimeout(() => {
-				setCurrentIndex((prevIndex) => prevIndex + 1);
+				const newIndex = currentIndex + 1;
+				handleSetCurrentIndex(newIndex);
+				// setCurrentIndex((prevIndex) => prevIndex + 1);
 			}, 2000);
 			return () => clearTimeout(timer);
+		} else if (algoOutput !== null && currentIndex === algoOutput.length - 1) {
+			return () => handleSetStart(false);
 		}
 	}, [currentIndex, algoOutput]);
 

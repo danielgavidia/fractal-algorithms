@@ -10,6 +10,7 @@ const page = () => {
 	const [target, setTarget] = useState<number>(0);
 	const [mode, setMode] = useState<string>("linear");
 	const [start, setStart] = useState<boolean>(false);
+	const [currentIndex, setCurrentIndex] = useState<number>(0);
 
 	const handleSetTarget = (i: number) => {
 		setTarget(i);
@@ -25,8 +26,17 @@ const page = () => {
 		setMode(newMode);
 	};
 
-	const handleSetStart = () => {
-		setStart(true);
+	const handleSetStart = (bool: boolean) => {
+		setStart(bool);
+	};
+
+	const handleStart = (bool: boolean) => {
+		handleSetStart(bool);
+		setCurrentIndex(0);
+	};
+
+	const handleSetCurrentIndex = (index: number) => {
+		setCurrentIndex(index);
 	};
 
 	return (
@@ -64,12 +74,19 @@ const page = () => {
 					binary
 				</button>
 			</div>
-			<button onClick={() => handleSetStart()} className="border-2 border-white rounded-lg">
+			<button onClick={() => handleStart(true)} className="border-2 border-white rounded-lg">
 				Start Animation
 			</button>
 			{start && mode === "linear" ? (
 				<>
-					<Linear start={start} list={list} target={target} />
+					<Linear
+						start={start}
+						list={list}
+						target={target}
+						currentIndex={currentIndex}
+						handleSetCurrentIndex={handleSetCurrentIndex}
+						handleSetStart={handleSetStart}
+					/>
 				</>
 			) : (
 				<></>
