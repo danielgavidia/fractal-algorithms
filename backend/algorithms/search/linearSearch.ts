@@ -6,10 +6,7 @@ type Node = {
 	childNode?: Node;
 };
 
-const exampleList = [1, "potato", "turkey", undefined, 6, 3, "tomato", 10];
-const exampleTarget = "tomato";
-
-const linearSearch = (node: Node) => {
+export const linearSearch = (node: Node) => {
 	const { list, target, index, success } = node;
 
 	// Defaults
@@ -41,5 +38,3 @@ const linearSearch = (node: Node) => {
 		childNode,
 	};
 };
-
-console.log(linearSearch({ list: exampleList, target: exampleTarget }));

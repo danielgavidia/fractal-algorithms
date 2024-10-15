@@ -1,5 +1,3 @@
-const exampleList = [5, 1, 4, 2, 8, 3, 11, 17, 9];
-
 type Node = {
 	list: number[];
 	index?: number;
@@ -9,7 +7,7 @@ type Node = {
 	childNode?: Node;
 };
 
-const bubbleSort = (node: Node) => {
+export const bubbleSort = (node: Node) => {
 	const { list, index, swapCount, iteration, success } = node;
 
 	// Defaults
@@ -68,5 +66,3 @@ const bubbleSort = (node: Node) => {
 
 	return { ...node, childNode };
 };
-
-console.log(JSON.stringify(bubbleSort({ list: exampleList }), null, 2));
