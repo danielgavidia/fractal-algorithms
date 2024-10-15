@@ -1,56 +1,14 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-
-type Node = {
-	list: number[];
-	target: number;
-	index: number;
-	success: boolean;
-};
-
-interface AnimationProps {
-	node: Node;
-}
-
-const Animation = ({ node }: AnimationProps) => {
-	const { list, target, index, success } = node;
-	// const border =
-	const getBorder = (item: number, key: number, index: number, target: number): string => {
-		if (key === index) {
-			return "border-2 border-red-900";
-		} else if (item === target) {
-			return "border-2 border-green-900";
-		} else {
-			return "";
-		}
-	};
-
-	const generalBackground = success ? "bg-white" : "";
-	return (
-		<div>
-			<ul className={"flex justify-between " + generalBackground}>
-				{list.map((i, key) => {
-					const border = getBorder(i, key, index, target);
-					console.log("item", i);
-					console.log("target", target);
-					return (
-						<li key={key} className={border}>
-							{i}
-						</li>
-					);
-				})}
-			</ul>
-		</div>
-	);
-};
+import React, { useState } from "react";
+import Linear from "./components/Linear";
 
 const page = () => {
 	const [list, setList] = useState<number[]>([54, 4, 27, 36, 22]);
 	const [newNumber, setNewNumber] = useState<number>(0);
 	const [target, setTarget] = useState<number>(0);
-	const [algoOutput, setAlgoOutput] = useState<Node[] | null>(null);
+	const [mode, setMode] = useState<string>("linear");
+	const [start, setStart] = useState<boolean>(false);
 
 	const handleSetTarget = (i: number) => {
 		setTarget(i);
@@ -62,40 +20,13 @@ const page = () => {
 		setNewNumber(0);
 	};
 
-	const getAlgoOutput = async () => {
-		const res = await axios({
-			method: "POST",
-			url: "http://localhost:3001/algos/search/linear",
-			data: {
-				list: list,
-				target: target,
-			},
-		});
-		return res.data;
+	const handleSetMode = (newMode: string) => {
+		setMode(newMode);
 	};
 
-	useEffect(() => {
-		const fetch = async () => {
-			const res = await getAlgoOutput();
-			console.log(res);
-			setAlgoOutput(res);
-		};
-		fetch();
-	}, [target]);
-
-	const [currentIndex, setCurrentIndex] = useState<number>(0);
-
-	useEffect(() => {
-		if (algoOutput !== null && currentIndex < algoOutput.length - 1) {
-			const timer = setTimeout(() => {
-				setCurrentIndex((prevIndex) => prevIndex + 1);
-			}, 2000);
-
-			return () => clearTimeout(timer);
-		}
-	}, [currentIndex, algoOutput]);
-
-	console.log("target", target);
+	const handleSetStart = () => {
+		setStart(true);
+	};
 
 	return (
 		<div className="p-4 w-full">
@@ -117,18 +48,31 @@ const page = () => {
 					</li>
 				))}
 			</ul>
-			<div className="text-green-400">
-				{algoOutput && (
-					<div>
-						{algoOutput.slice(0, currentIndex + 1).map((x, key) => {
-							return <Animation key={key} node={x} />;
-						})}
-					</div>
-					// <div>
-					// 	<Animation node={algoOutput[currentIndex]} />
-					// </div>
-				)}
+			<div>Select Mode: {mode}</div>
+			<div className="flex justify-between">
+				<button
+					onClick={() => handleSetMode("linear")}
+					className="border-2 border-white rounded-lg"
+				>
+					linear
+				</button>
+				<button
+					onClick={() => handleSetMode("binary")}
+					className="border-2 border-white rounded-lg"
+				>
+					binary
+				</button>
 			</div>
+			<button onClick={() => handleSetStart()} className="border-2 border-white rounded-lg">
+				Start Animation
+			</button>
+			{start && mode === "linear" ? (
+				<>
+					<Linear start={start} list={list} target={target} />
+				</>
+			) : (
+				<></>
+			)}
 		</div>
 	);
 };
