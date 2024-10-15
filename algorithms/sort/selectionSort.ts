@@ -1,72 +1,70 @@
-interface SelectionSortProps {
-	list: number[];
-	index: number;
-	indexLowest: number;
-	iteration: number;
-}
-
 const exampleList = [64, 25, 12, 22, 11, 5, 37];
 
-const selectionSort = ({ list, index, indexLowest, iteration }: SelectionSortProps) => {
-	const currentConfig = {
-		list: list,
-		index: index,
-		indexLowest: indexLowest,
-		iteration: iteration,
-	};
-
-	if (iteration === list.length - 1) {
-		return "Completed";
-	} else if (index === list.length - 1 && list[indexLowest] < list[index]) {
-		console.log(currentConfig);
-		let newList = [...list.slice(0, indexLowest), ...list.slice(indexLowest + 1)];
-		newList.splice(iteration, 0, list[indexLowest]);
-		const newConfig = {
-			list: newList,
-			index: iteration + 1,
-			indexLowest: iteration + 1,
-			iteration: iteration + 1,
-		};
-		return selectionSort(newConfig);
-	} else if (index === list.length - 1 && list[indexLowest] > list[index]) {
-		console.log(currentConfig);
-		let newList = [...list.slice(0, index), ...list.slice(index + 1)];
-		newList.splice(iteration, 0, list[index]);
-		const newConfig = {
-			list: newList,
-			index: iteration + 1,
-			indexLowest: iteration + 1,
-			iteration: iteration + 1,
-		};
-		return selectionSort(newConfig);
-	} else if (list[indexLowest] < list[index]) {
-		console.log(currentConfig);
-		const newConfig = {
-			list: list,
-			index: index + 1,
-			indexLowest: indexLowest,
-			iteration: iteration,
-		};
-		return selectionSort(newConfig);
-	} else if (list[indexLowest] > list[index]) {
-		console.log(currentConfig);
-		const newConfig = {
-			list: list,
-			index: index + 1,
-			indexLowest: index,
-			iteration: iteration,
-		};
-		return selectionSort(newConfig);
-	} else if (list[indexLowest] === list[index]) {
-		console.log(currentConfig);
-		const newConfig = {
-			list: list,
-			index: index + 1,
-			indexLowest: indexLowest,
-			iteration: iteration,
-		};
-		return selectionSort(newConfig);
-	}
+type Node = {
+	list: number[];
+	index?: number;
+	indexLowest?: number;
+	iteration?: number;
+	success?: boolean;
+	childNode?: Node;
 };
 
-console.log(selectionSort({ list: exampleList, index: 0, indexLowest: 0, iteration: 0 }));
+const selectionSort = (node: Node): Node => {
+	const { list, index, indexLowest, iteration, success } = node;
+
+	// Defaults
+	const indexDefined = index === undefined ? 0 : index;
+	const indexLowestDefined = indexLowest === undefined ? indexDefined : indexLowest;
+	const iterationDefined = iteration === undefined ? 0 : iteration;
+	const successDefined = success === undefined ? false : success;
+
+	// Base case: if iteration reaches the end of the list, the sorting is complete
+	if (iterationDefined === list.length - 1) {
+		return { ...node, success: true };
+	}
+
+	// If index reaches the end of the list, swap the lowest found element with the current iteration index
+	if (indexDefined === list.length) {
+		const newList: number[] = [...list];
+		// Perform swap
+		const temp = newList[iterationDefined];
+		newList[iterationDefined] = newList[indexLowestDefined];
+		newList[indexLowestDefined] = temp;
+
+		return selectionSort({
+			list: newList,
+			index: iterationDefined + 1,
+			indexLowest: iterationDefined + 1,
+			iteration: iterationDefined + 1,
+			success: successDefined,
+		});
+	}
+
+	// Recursive call: find the lowest element in the unsorted portion
+	let childNode: Node;
+
+	// If list[index] < lowest item, update indexLowest
+	if (list[indexDefined] < list[indexLowestDefined]) {
+		childNode = selectionSort({
+			list: list,
+			index: indexDefined + 1,
+			indexLowest: indexDefined,
+			iteration: iterationDefined,
+			success: successDefined,
+		});
+	}
+	// If list[index] > lowest item, continue without updating indexLowest
+	else {
+		childNode = selectionSort({
+			list: list,
+			index: indexDefined + 1,
+			indexLowest: indexLowestDefined,
+			iteration: iterationDefined,
+			success: successDefined,
+		});
+	}
+
+	return { ...node, childNode };
+};
+
+console.log(JSON.stringify(selectionSort({ list: exampleList }), null, 2));
