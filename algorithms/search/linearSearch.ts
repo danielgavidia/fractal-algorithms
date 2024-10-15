@@ -1,21 +1,45 @@
-interface LinearSearchProps {
+type Node = {
 	list: any[];
 	target: any;
-	index: number;
-}
-
-const exampleList = [1, "potato", { key: "value" }, undefined, 6, 3, "tomato", 10];
-const exampleTarget = "tomato";
-const exampleIndex: number = 0;
-
-const linearSearch = ({ list, target, index }: LinearSearchProps) => {
-	if (list[index] === target) {
-		return `The target ${JSON.stringify(target)} is found at the following index: ${index}`;
-	}
-	console.log(
-		`We are at index: ${index}. List item at this index: ${JSON.stringify(list[index])}`
-	);
-	return linearSearch({ list: list, target: target, index: index + 1 });
+	index?: number;
+	success?: boolean;
+	childNode?: Node;
 };
 
-console.log(linearSearch({ list: exampleList, target: exampleTarget, index: exampleIndex }));
+const exampleList = [1, "potato", "turkey", undefined, 6, 3, "tomato", 10];
+const exampleTarget = "tomato";
+
+const linearSearch = (node: Node) => {
+	const { list, target, index, success } = node;
+
+	// Defaults
+	const indexDefined = index === undefined ? 0 : index;
+	const successDefined = success === undefined ? false : success;
+
+	// Logic
+	// If we get a match, return final node
+	if (list[indexDefined] === target) {
+		return { ...node, index: indexDefined, success: true };
+	}
+
+	// If the end of the list is reached without finding the target, return the node with failure
+	if (indexDefined >= list.length - 1) {
+		return { ...node, index: indexDefined, success: false };
+	}
+
+	// Recursively call the function and set the 'childNode'
+	const childNode: Node = linearSearch({
+		list,
+		target,
+		index: indexDefined + 1,
+		success: successDefined,
+	});
+
+	return {
+		...node,
+		index: indexDefined,
+		childNode,
+	};
+};
+
+console.log(linearSearch({ list: exampleList, target: exampleTarget }));
