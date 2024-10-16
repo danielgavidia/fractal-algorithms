@@ -29,7 +29,7 @@ import Merge from "@/components/sort/Merge";
 import Quick from "@/components/sort/Quick";
 
 const page = () => {
-	const list = [22, 13, 71, 49, 37, 27, 11, 7];
+	const list = [22, 13, 71, 49, 37, 27, 11, 7, 42, 67, 103];
 	const [mode, setMode] = useState<string>("bubble");
 
 	// Data
@@ -86,7 +86,7 @@ const page = () => {
 					<li key={index}>{item}</li>
 				))}
 			</ul>
-			<ul>
+			<ul className="h-full">
 				{modesData.map((m) => {
 					if (mode === m.name && m.data !== undefined) {
 						return <AnimationHandler data={m.data} Component={m.component} />;
