@@ -1,50 +1,33 @@
 import React from "react";
 import { NodeBubbleSort } from "../../../../types/typesSort";
 
-// Main
 interface BubbleProps {
-	data: NodeBubbleSort[];
-}
-const Bubble = ({ data }: BubbleProps) => {
-	return (
-		<div className="text-green-400">
-			{data.map((node, key) => {
-				return <BubbleAnimation key={key} node={node} />;
-			})}
-		</div>
-	);
-};
-
-export default Bubble;
-
-// Animation
-interface BubbleAnimationProps {
 	node: NodeBubbleSort;
 }
 
-const BubbleAnimation = ({ node }: BubbleAnimationProps) => {
-	const { list, index, swapCount, iteration, success } = node;
-	const generalBackground = success ? "bg-white" : "";
+const Bubble = ({ node }: BubbleProps) => {
+	const { list, index, swapCount, iteration } = node;
 
-	function getBorder(key: number, index: number | undefined): string {
+	function getBarStyle(key: number, index: number | undefined): string {
 		if (key === index) {
-			return "border-2 border-green-900";
+			return "border-2 border-white bg-green-900";
 		}
-		return "";
+		return "border-2 border-white";
 	}
 
 	return (
-		<div className={"flex w-full border-2 border-white " + generalBackground}>
+		<div className={"flex w-full"}>
 			<div className="w-40">
 				<p>swapCount: {swapCount}</p>
 				<p>iteration: {iteration}</p>
 			</div>
-			<ul className="flex justify-between w-full">
+			<ul className="flex justify-between w-full items-end">
 				{list.map((i, key) => {
-					const border = getBorder(key, index);
+					const barStyle = getBarStyle(key, index);
 					return (
-						<li key={key} className={border}>
-							{i}
+						<li key={key} className="flex-1 mx-1">
+							<div style={{ height: `${i * 5}px` }} className={barStyle}></div>
+							<div className="text-center">{i}</div>
 						</li>
 					);
 				})}
@@ -52,3 +35,5 @@ const BubbleAnimation = ({ node }: BubbleAnimationProps) => {
 		</div>
 	);
 };
+
+export default Bubble;

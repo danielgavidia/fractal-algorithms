@@ -21,6 +21,7 @@ import {
 } from "@/utils/express";
 
 // Components
+import AnimationHandler from "@/components/general/AnimationHandler";
 import Bubble from "@/components/sort/Bubble";
 import Selection from "@/components/sort/Selection";
 import Insertion from "@/components/sort/Insertion";
@@ -80,9 +81,9 @@ const page = () => {
 					<li key={index}>{item}</li>
 				))}
 			</ul>
-			{mode === "bubble" ? (
+			{mode === "bubble" && bubbleData !== undefined ? (
 				<>
-					<Bubble data={bubbleData} />
+					<AnimationHandler data={bubbleData} Component={Bubble} />
 				</>
 			) : (
 				<></>
