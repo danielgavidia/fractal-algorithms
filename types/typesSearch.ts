@@ -1,3 +1,4 @@
+// Linear search
 export type NodeLinearSearch = {
 	list: number[];
 	target: number;
@@ -5,6 +6,7 @@ export type NodeLinearSearch = {
 	success: boolean;
 };
 
+// Binary search
 export type NodeBinarySearch = {
 	list: number[]; // The list to be searched
 	target: number; // The target number

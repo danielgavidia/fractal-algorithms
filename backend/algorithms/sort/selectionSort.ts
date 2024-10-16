@@ -1,13 +1,6 @@
-type Node = {
-	list: number[];
-	index?: number;
-	indexLowest?: number;
-	iteration?: number;
-	success?: boolean;
-	childNode?: Node;
-};
+import type { NodeSelectionSort } from "../../../types/typesSort";
 
-export const selectionSort = (node: Node): Node => {
+const selectionSortAlgo = (node: NodeSelectionSort): NodeSelectionSort => {
 	const { list, index, indexLowest, iteration, success } = node;
 
 	// Defaults
@@ -18,7 +11,13 @@ export const selectionSort = (node: Node): Node => {
 
 	// Base case: if iteration reaches the end of the list, the sorting is complete
 	if (iterationDefined === list.length - 1) {
-		return { ...node, success: true };
+		return {
+			...node,
+			index: indexDefined,
+			indexLowest: indexLowestDefined,
+			iteration: iterationDefined,
+			success: true,
+		};
 	}
 
 	// If index reaches the end of the list, swap the lowest found element with the current iteration index
@@ -29,7 +28,7 @@ export const selectionSort = (node: Node): Node => {
 		newList[iterationDefined] = newList[indexLowestDefined];
 		newList[indexLowestDefined] = temp;
 
-		return selectionSort({
+		return selectionSortAlgo({
 			list: newList,
 			index: iterationDefined + 1,
 			indexLowest: iterationDefined + 1,
@@ -39,11 +38,11 @@ export const selectionSort = (node: Node): Node => {
 	}
 
 	// Recursive call: find the lowest element in the unsorted portion
-	let childNode: Node;
+	let childNode: NodeSelectionSort;
 
 	// If list[index] < lowest item, update indexLowest
 	if (list[indexDefined] < list[indexLowestDefined]) {
-		childNode = selectionSort({
+		childNode = selectionSortAlgo({
 			list: list,
 			index: indexDefined + 1,
 			indexLowest: indexDefined,
@@ -53,7 +52,7 @@ export const selectionSort = (node: Node): Node => {
 	}
 	// If list[index] > lowest item, continue without updating indexLowest
 	else {
-		childNode = selectionSort({
+		childNode = selectionSortAlgo({
 			list: list,
 			index: indexDefined + 1,
 			indexLowest: indexLowestDefined,
@@ -62,5 +61,45 @@ export const selectionSort = (node: Node): Node => {
 		});
 	}
 
-	return { ...node, childNode };
+	return {
+		...node,
+		index: indexDefined,
+		indexLowest: indexLowestDefined,
+		iteration: iterationDefined,
+		success: successDefined,
+		childNode,
+	};
+};
+
+const selectionSortDecode = (
+	node: NodeSelectionSort,
+	array: NodeSelectionSort[]
+): NodeSelectionSort[] => {
+	if (node.childNode === undefined) {
+		let newArr = [...array];
+		newArr.push({
+			list: node.list,
+			index: node.index,
+			indexLowest: node.indexLowest,
+			iteration: node.iteration,
+			success: node.success,
+		});
+		return newArr;
+	} else {
+		let newArr = [...array];
+		newArr.push({
+			list: node.list,
+			index: node.index,
+			indexLowest: node.indexLowest,
+			iteration: node.iteration,
+			success: node.success,
+		});
+		return selectionSortDecode(node.childNode, newArr);
+	}
+};
+
+export const selectionSort = (node: NodeSelectionSort): NodeSelectionSort[] => {
+	const nodes = selectionSortAlgo(node);
+	const nodesDecoded = selectionSortDecode(nodes, []);
+	return nodesDecoded;
 };
