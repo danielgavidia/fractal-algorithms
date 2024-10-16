@@ -4,9 +4,11 @@ import React, { useEffect, useState } from "react";
 import { NodeBubbleSort, NodeSelectionSort } from "../../../../types/typesSort";
 import { getBubbleSort, getSelectionSort } from "@/utils/express";
 import Bubble from "@/components/sort/Bubble";
+import Selection from "@/components/sort/Selection";
 
 const page = () => {
-	const [list, setList] = useState<number[]>([49, 37, 27, 11, 7]);
+	// const [list, setList] = useState<number[]>([49, 37, 27, 11, 7]);
+	const list = [49, 37, 27, 11, 7];
 	const [mode, setMode] = useState<string>("bubble");
 
 	// Data
@@ -59,7 +61,13 @@ const page = () => {
 			) : (
 				<></>
 			)}
-			{/* {mode === "binary" ? <><Binary data={binaryData} /></> : <></>} */}
+			{mode === "selection" ? (
+				<>
+					<Selection data={selectionData} />
+				</>
+			) : (
+				<></>
+			)}
 		</div>
 	);
 };
