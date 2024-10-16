@@ -1,27 +1,10 @@
 import React from "react";
 import { NodeSelectionSort } from "../../../../types/typesSort";
 
-// Main
 interface SelectionProps {
-	data: NodeSelectionSort[];
-}
-const Selection = ({ data }: SelectionProps) => {
-	return (
-		<div>
-			{data.map((node, key) => {
-				return <SelectionAnimation key={key} node={node} />;
-			})}
-		</div>
-	);
-};
-
-export default Selection;
-
-// Animation
-interface SelectionAnimationProps {
 	node: NodeSelectionSort;
 }
-const SelectionAnimation = ({ node }: SelectionAnimationProps) => {
+const Selection = ({ node }: SelectionProps) => {
 	const { list, index, indexLowest, iteration, success } = node;
 	const generalBackground = success ? "bg-white" : "";
 
@@ -56,3 +39,5 @@ const SelectionAnimation = ({ node }: SelectionAnimationProps) => {
 		</div>
 	);
 };
+
+export default Selection;

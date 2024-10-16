@@ -29,7 +29,6 @@ import Merge from "@/components/sort/Merge";
 import Quick from "@/components/sort/Quick";
 
 const page = () => {
-	// const [list, setList] = useState<number[]>([49, 37, 27, 11, 7]);
 	const list = [22, 13, 71, 49, 37, 27, 11, 7];
 	const [mode, setMode] = useState<string>("bubble");
 
@@ -45,8 +44,14 @@ const page = () => {
 		setMode(mode);
 	};
 
-	// const modes
-	const modes = ["bubble", "selection", "insertion", "merge", "quick"];
+	// modesData
+	const modesData = [
+		{ name: "bubble", data: bubbleData, component: Bubble },
+		{ name: "selection", data: selectionData, component: Selection },
+		{ name: "insertion", data: insertionData, component: Insertion },
+		{ name: "merge", data: mergeData, component: Merge },
+		{ name: "quick", data: quickData, component: Quick },
+	];
 
 	// Fetch data
 	useEffect(() => {
@@ -70,9 +75,9 @@ const page = () => {
 			<h2>Sort Algos</h2>
 			<div>Select Mode: {mode}</div>
 			<div className="flex justify-between">
-				{modes.map((mode, key) => (
-					<button key={key} onClick={() => handleSetMode(mode)}>
-						{mode}
+				{modesData.map((m, key) => (
+					<button key={key} onClick={() => handleSetMode(m.name)}>
+						{m.name}
 					</button>
 				))}
 			</div>
@@ -81,41 +86,15 @@ const page = () => {
 					<li key={index}>{item}</li>
 				))}
 			</ul>
-			{mode === "bubble" && bubbleData !== undefined ? (
-				<>
-					<AnimationHandler data={bubbleData} Component={Bubble} />
-				</>
-			) : (
-				<></>
-			)}
-			{mode === "selection" ? (
-				<>
-					<Selection data={selectionData} />
-				</>
-			) : (
-				<></>
-			)}
-			{mode === "insertion" ? (
-				<>
-					<Insertion data={insertionData} />
-				</>
-			) : (
-				<></>
-			)}
-			{mode === "merge" ? (
-				<>
-					<Merge data={mergeData} />
-				</>
-			) : (
-				<></>
-			)}
-			{mode === "quick" ? (
-				<>
-					<Quick data={quickData} />
-				</>
-			) : (
-				<></>
-			)}
+			<ul>
+				{modesData.map((m) => {
+					if (mode === m.name && m.data !== undefined) {
+						return <AnimationHandler data={m.data} Component={m.component} />;
+					} else {
+						return <></>;
+					}
+				})}
+			</ul>
 		</div>
 	);
 };

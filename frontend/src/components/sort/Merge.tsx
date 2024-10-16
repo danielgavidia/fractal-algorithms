@@ -1,28 +1,11 @@
 import React from "react";
 import { MergeSortProps } from "../../../../types/typesSort";
 
-// Main
 interface MergeProps {
-	data: MergeSortProps[];
-}
-const Merge = ({ data }: MergeProps) => {
-	return (
-		<div className="text-green-400">
-			{data.map((node, key) => {
-				return <MergeAnimation key={key} node={node} />;
-			})}
-		</div>
-	);
-};
-
-export default Merge;
-
-// Animation
-interface MergeAnimationProps {
 	node: MergeSortProps;
 }
 
-const MergeAnimation = ({ node }: MergeAnimationProps) => {
+const Merge = ({ node }: MergeProps) => {
 	const { list, level, left, right } = node;
 	// const generalBackground = success ? "bg-white" : "";
 
@@ -68,3 +51,5 @@ const MergeAnimation = ({ node }: MergeAnimationProps) => {
 		</div>
 	);
 };
+
+export default Merge;
