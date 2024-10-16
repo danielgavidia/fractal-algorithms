@@ -8,16 +8,24 @@ import {
 	NodeSelectionSort,
 	InsertionSortProps,
 	MergeSortProps,
+	QuickSortProps,
 } from "../../../../types/typesSort";
 
 // Express utils
-import { getBubbleSort, getSelectionSort, getInsertionSort, getMergeSort } from "@/utils/express";
+import {
+	getBubbleSort,
+	getSelectionSort,
+	getInsertionSort,
+	getMergeSort,
+	getQuickSort,
+} from "@/utils/express";
 
 // Components
 import Bubble from "@/components/sort/Bubble";
 import Selection from "@/components/sort/Selection";
 import Insertion from "@/components/sort/Insertion";
 import Merge from "@/components/sort/Merge";
+import Quick from "@/components/sort/Quick";
 
 const page = () => {
 	// const [list, setList] = useState<number[]>([49, 37, 27, 11, 7]);
@@ -29,6 +37,7 @@ const page = () => {
 	const [selectionData, setSelectionData] = useState<NodeSelectionSort[]>([]);
 	const [insertionData, setInsertionData] = useState<InsertionSortProps[]>([]);
 	const [mergeData, setMergeData] = useState<MergeSortProps[]>([]);
+	const [quickData, setQuickData] = useState<QuickSortProps[]>([]);
 
 	// Handlers
 	const handleSetMode = (mode: string) => {
@@ -36,7 +45,7 @@ const page = () => {
 	};
 
 	// const modes
-	const modes = ["bubble", "selection", "insertion", "merge"];
+	const modes = ["bubble", "selection", "insertion", "merge", "quick"];
 
 	// Fetch data
 	useEffect(() => {
@@ -49,9 +58,11 @@ const page = () => {
 			setInsertionData(resInsertion);
 			const resMerge: MergeSortProps[] = await getMergeSort(list);
 			setMergeData(resMerge);
+			const resQuick: QuickSortProps[] = await getQuickSort(list);
+			setQuickData(resQuick);
 		};
 		fetch();
-	}, [list]);
+	}, [mode]);
 
 	return (
 		<div>
@@ -93,6 +104,13 @@ const page = () => {
 			{mode === "merge" ? (
 				<>
 					<Merge data={mergeData} />
+				</>
+			) : (
+				<></>
+			)}
+			{mode === "quick" ? (
+				<>
+					<Quick data={quickData} />
 				</>
 			) : (
 				<></>

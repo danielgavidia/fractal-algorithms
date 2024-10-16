@@ -24,7 +24,6 @@ interface InsertionAnimationProps {
 
 const InsertionAnimation = ({ node }: InsertionAnimationProps) => {
 	const { list, sortedList, target, index } = node;
-	// const generalBackground = success ? "bg-white" : "";
 
 	function getBorder(
 		key: number,
