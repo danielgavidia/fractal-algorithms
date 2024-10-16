@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Linear from "../../components/Linear";
-import Binary from "../../components/Binary";
+import Linear from "../../components/search/Linear";
+import Binary from "../../components/search/Binary";
 
 // Types
 import type { NodeLinearSearch, NodeBinarySearch } from "../../../../types/typesSearch";
@@ -45,7 +45,7 @@ const page = () => {
 
 	return (
 		<div className="p-4 w-full">
-			<h2>Linear Search Algo</h2>
+			<h2>Search Algos</h2>
 			<form onSubmit={handleAddToList} className="w-full">
 				<input
 					value={newNumber}

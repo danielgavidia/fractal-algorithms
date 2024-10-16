@@ -1,13 +1,6 @@
-type Node = {
-	list: number[];
-	index?: number;
-	swapCount?: number;
-	iteration?: number;
-	success?: boolean;
-	childNode?: Node;
-};
+import type { NodeBubbleSort } from "../../../types/typesSort";
 
-export const bubbleSort = (node: Node): Node => {
+const bubbleSortAlgo = (node: NodeBubbleSort): NodeBubbleSort => {
 	const { list, index, swapCount, iteration, success } = node;
 
 	// Defaults
@@ -22,11 +15,11 @@ export const bubbleSort = (node: Node): Node => {
 	}
 
 	// Start childnode
-	let childNode: Node = { ...node };
+	let childNode: NodeBubbleSort = { ...node };
 
 	// If end of list iteration but swaps > 0, restart and mark failure
 	if (indexDefined === list.length - 1 && swapCountDefined > 0) {
-		childNode = bubbleSort({
+		childNode = bubbleSortAlgo({
 			list: [...list],
 			index: 0,
 			swapCount: 0,
@@ -45,7 +38,7 @@ export const bubbleSort = (node: Node): Node => {
 	if (item1 > item2) {
 		newList[index1] = item2;
 		newList[index2] = item1;
-		childNode = bubbleSort({
+		childNode = bubbleSortAlgo({
 			list: newList,
 			index: indexDefined + 1,
 			swapCount: swapCountDefined + 1,
@@ -55,7 +48,7 @@ export const bubbleSort = (node: Node): Node => {
 	} else if (item1 < item2) {
 		newList[index1] = item1;
 		newList[index2] = item2;
-		childNode = bubbleSort({
+		childNode = bubbleSortAlgo({
 			list: newList,
 			index: indexDefined + 1,
 			swapCount: swapCountDefined,
@@ -65,4 +58,34 @@ export const bubbleSort = (node: Node): Node => {
 	}
 
 	return { ...node, childNode };
+};
+
+const bubbleSortDecode = (node: NodeBubbleSort, array: NodeBubbleSort[]): NodeBubbleSort[] => {
+	if (node.childNode === undefined) {
+		let newArr = [...array];
+		newArr.push({
+			list: node.list,
+			index: node.index,
+			swapCount: node.swapCount,
+			iteration: node.iteration,
+			success: node.success,
+		});
+		return newArr;
+	} else {
+		let newArr = [...array];
+		newArr.push({
+			list: node.list,
+			index: node.index,
+			swapCount: node.swapCount,
+			iteration: node.iteration,
+			success: node.success,
+		});
+		return bubbleSortDecode(node.childNode, newArr);
+	}
+};
+
+export const bubbleSort = (node: NodeBubbleSort): NodeBubbleSort[] => {
+	const nodes = bubbleSortAlgo(node);
+	const nodesDecoded = bubbleSortDecode(nodes, []);
+	return nodesDecoded;
 };

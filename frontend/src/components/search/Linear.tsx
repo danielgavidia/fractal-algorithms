@@ -1,5 +1,22 @@
-import type { NodeLinearSearch } from "../../../types/typesSearch";
+import React from "react";
+import { NodeLinearSearch } from "../../../../types/typesSearch";
 
+// Main
+interface LinearProps {
+	data: NodeLinearSearch[];
+}
+
+const Linear = ({ data }: LinearProps) => {
+	return (
+		<div className="text-green-400">
+			{data.map((node, key) => {
+				return <LinearAnimation key={key} node={node} />;
+			})}
+		</div>
+	);
+};
+
+// Animation
 interface LinearAnimationProps {
 	node: NodeLinearSearch;
 }
@@ -33,4 +50,4 @@ const LinearAnimation = ({ node }: LinearAnimationProps) => {
 	);
 };
 
-export default LinearAnimation;
+export default Linear;
