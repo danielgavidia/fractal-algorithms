@@ -1,29 +1,11 @@
 import React from "react";
 import { QuickSortProps } from "../../../../types/typesSort";
 
-// Main
 interface QuickProps {
-	data: QuickSortProps[];
-}
-const Quick = ({ data }: QuickProps) => {
-	// console.log(data);
-	return (
-		<div className="text-green-400">
-			{data.map((node, key) => {
-				return <QuickAnimation key={key} node={node} />;
-			})}
-		</div>
-	);
-};
-
-export default Quick;
-
-// Animation
-interface QuickAnimationProps {
 	node: QuickSortProps;
 }
 
-const QuickAnimation = ({ node }: QuickAnimationProps) => {
+const Quick = ({ node }: QuickProps) => {
 	// const { list, level, prePivot, pivot, postPivot, sorted } = node;
 	const { list, level, sorted } = node;
 
@@ -54,3 +36,5 @@ const QuickAnimation = ({ node }: QuickAnimationProps) => {
 		</div>
 	);
 };
+
+export default Quick;

@@ -1,28 +1,11 @@
 import React from "react";
 import { InsertionSortProps } from "../../../../types/typesSort";
 
-// Main
 interface InsertionProps {
-	data: InsertionSortProps[];
-}
-const Insertion = ({ data }: InsertionProps) => {
-	return (
-		<div className="text-green-400">
-			{data.map((node, key) => {
-				return <InsertionAnimation key={key} node={node} />;
-			})}
-		</div>
-	);
-};
-
-export default Insertion;
-
-// Animation
-interface InsertionAnimationProps {
 	node: InsertionSortProps;
 }
 
-const InsertionAnimation = ({ node }: InsertionAnimationProps) => {
+const Insertion = ({ node }: InsertionProps) => {
 	const { list, sortedList, target, index } = node;
 
 	function getBorder(
@@ -62,3 +45,5 @@ const InsertionAnimation = ({ node }: InsertionAnimationProps) => {
 		</div>
 	);
 };
+
+export default Insertion;

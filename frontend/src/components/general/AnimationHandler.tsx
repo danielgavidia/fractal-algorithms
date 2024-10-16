@@ -19,7 +19,7 @@ const AnimationHandler = ({ data, Component }: AnimationHandlerProps) => {
 		if (isRunning && !isPaused && currentIndex < data.length - 1) {
 			interval = setInterval(() => {
 				setCurrentIndex((prev) => (prev < data.length - 1 ? prev + 1 : 0));
-			}, 2000);
+			}, 500);
 		}
 
 		if (currentIndex === data.length - 1) {
