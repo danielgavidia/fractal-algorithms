@@ -1,7 +1,7 @@
-import type { Node } from "./Binary";
+import { NodeBinarySearch } from "../../../../types/typesSearch";
 
 interface BinearAnimationProps {
-	node: Node;
+	node: NodeBinarySearch;
 }
 
 const getBorder = (
@@ -12,10 +12,10 @@ const getBorder = (
 	R: number,
 	m: number
 ): string => {
-	if (key === L || key === R) {
+	if (key === m) {
+		return "border-2 border-blue-900";
+	} else if (key === L || key === R) {
 		return "border-2 border-red-900";
-	} else if (key === m) {
-		return "border=2 border-sky-900";
 	} else if (item === target) {
 		return "border-2 border-green-900";
 	} else {
@@ -33,8 +33,6 @@ const BinearAnimation = ({ node }: BinearAnimationProps) => {
 			<ul className={"flex justify-between " + generalBackground}>
 				{list.map((i, key) => {
 					const border = getBorder(i, key, target, L, R, m);
-					console.log("item", i);
-					console.log("target", target);
 					return (
 						<li key={key} className={border}>
 							{i}

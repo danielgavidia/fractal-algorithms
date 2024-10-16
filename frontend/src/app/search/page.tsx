@@ -1,16 +1,33 @@
 "use client";
 
-import React, { useState } from "react";
-import Linear from "./components/Linear";
-import Binary from "./components/Binary";
+import React, { useState, useEffect } from "react";
+import Linear from "../components/Linear";
+import Binary from "../components/Binary";
+
+// Types
+import type { NodeLinearSearch, NodeBinarySearch } from "../../../../types/typesSearch";
+
+// Utils
+import { getLinearSearch, getBinarySearch } from "../utils/express";
 
 const page = () => {
-	const [list, setList] = useState<number[]>([54, 4, 27, 36, 22]);
+	const [list, setList] = useState<number[]>([8, 12, 21, 33, 47]);
 	const [newNumber, setNewNumber] = useState<number>(0);
 	const [target, setTarget] = useState<number>(0);
 	const [mode, setMode] = useState<string>("linear");
-	const [start, setStart] = useState<boolean>(false);
-	const [currentIndex, setCurrentIndex] = useState<number>(0);
+
+	const [linearData, setLinearData] = useState<NodeLinearSearch[]>([]);
+	const [binaryData, setBinaryData] = useState<NodeBinarySearch[]>([]);
+
+	useEffect(() => {
+		const fetch = async () => {
+			const resLinear: NodeLinearSearch[] = await getLinearSearch(list, target);
+			setLinearData(resLinear);
+			const resBinary: NodeBinarySearch[] = await getBinarySearch(list, target);
+			setBinaryData(resBinary);
+		};
+		fetch();
+	}, [target, list]);
 
 	const handleSetTarget = (i: number) => {
 		setTarget(i);
@@ -24,19 +41,6 @@ const page = () => {
 
 	const handleSetMode = (newMode: string) => {
 		setMode(newMode);
-	};
-
-	const handleSetStart = (bool: boolean) => {
-		setStart(bool);
-	};
-
-	const handleStart = (bool: boolean) => {
-		handleSetStart(bool);
-		setCurrentIndex(0);
-	};
-
-	const handleSetCurrentIndex = (index: number) => {
-		setCurrentIndex(index);
 	};
 
 	return (
@@ -74,26 +78,16 @@ const page = () => {
 					binary
 				</button>
 			</div>
-			<button onClick={() => handleStart(true)} className="border-2 border-white rounded-lg">
-				Start Animation
-			</button>
-			{start && mode === "linear" ? (
+			{mode === "linear" ? (
 				<>
-					<Linear
-						start={start}
-						list={list}
-						target={target}
-						currentIndex={currentIndex}
-						handleSetCurrentIndex={handleSetCurrentIndex}
-						handleSetStart={handleSetStart}
-					/>
+					<Linear data={linearData} />
 				</>
 			) : (
 				<></>
 			)}
-			{start && mode === "binary" ? (
+			{mode === "binary" ? (
 				<>
-					<Binary start={start} list={list} target={target} />
+					<Binary data={binaryData} />
 				</>
 			) : (
 				<></>
