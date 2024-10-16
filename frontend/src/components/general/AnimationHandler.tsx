@@ -51,15 +51,15 @@ const AnimationHandler = ({ data, Component }: AnimationHandlerProps) => {
 	};
 
 	return (
-		<div className="text-green-400">
-			<div className="flex space-x-4 mb-4">
-				<button onClick={startAnimation} className="bg-blue-500 text-white px-4 py-2">
+		<div className="flex flex-col text-green-400 w-full items-center">
+			<div className="flex space-x-4 mb-4 justify-between w-80">
+				<button onClick={startAnimation} className="bg-black text-white px-4 py-2 w-24">
 					Start
 				</button>
-				<button onClick={pauseAnimation} className="bg-yellow-500 text-white px-4 py-2">
+				<button onClick={pauseAnimation} className="bg-black text-white px-4 py-2 w-24">
 					Pause
 				</button>
-				<button onClick={resetAnimation} className="bg-red-500 text-white px-4 py-2">
+				<button onClick={resetAnimation} className="bg-black text-white px-4 py-2 w-24">
 					Restart
 				</button>
 			</div>
