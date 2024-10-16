@@ -66,3 +66,23 @@ app.post("/algos/sort/insertion", (req, res) => {
 	const algoOutput = insertionSort(list);
 	res.status(200).json(algoOutput);
 });
+
+// Merge sort
+import { mergeSort } from "../algorithms/sort/mergeSort";
+
+app.post("/algos/sort/merge", (req, res) => {
+	const { list } = req.body;
+	console.log(list);
+	const algoOutput = mergeSort(list);
+	res.status(200).json(algoOutput);
+});
+
+// Quick sort
+import { quickSort } from "../algorithms/sort/quickSort";
+
+app.post("/algos/sort/quick", (req, res) => {
+	const { list } = req.body;
+	console.log(list);
+	const algoOutput = quickSort(list);
+	res.status(200).json(algoOutput);
+});

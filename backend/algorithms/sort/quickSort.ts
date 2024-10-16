@@ -1,30 +1,58 @@
-interface QuickSortProps {
-	list: number[];
-}
+import type { QuickSortProps } from "../../../types/typesSort";
 
-const exampleList = [38, 27, 43, 3, 9, 82, 10, 9, 1, 7, 3, 5, 4, 10];
-
-const quickSort = ({ list }: QuickSortProps): number[] => {
+const quickSortAlgo = ({ list, level = 0, callback }: QuickSortProps): QuickSortProps => {
 	if (list.length <= 1) {
-		return list;
+		return { list: list, level };
 	}
 	const pivotIndex = Math.floor(Math.random() * list.length);
 	const pivot = list[pivotIndex];
-	let prePivot = [];
-	let postPivot = [];
+	let prePivot: QuickSortProps = { list: [], level: level };
+	let postPivot: QuickSortProps = { list: [], level: level };
+
 	for (let i = 0; i < list.length; i++) {
 		if (i === pivotIndex) continue;
 		else if (pivot > list[i]) {
-			prePivot.push(list[i]);
+			prePivot.list.push(list[i]);
 		} else {
-			postPivot.push(list[i]);
+			postPivot.list.push(list[i]);
 		}
 	}
 
-	prePivot = quickSort({ list: prePivot });
-	postPivot = quickSort({ list: postPivot });
+	if (callback) {
+		callback({
+			list: list,
+			level: level,
+			prePivot: prePivot.list,
+			pivot: pivot,
+			postPivot: postPivot.list,
+			sorted: [...prePivot.list, pivot, ...postPivot.list],
+		});
+	}
 
-	return [...prePivot, pivot, ...postPivot];
+	prePivot = quickSortAlgo({ list: prePivot.list, level: level + 1, callback });
+	postPivot = quickSortAlgo({ list: postPivot.list, level: level + 1, callback });
+
+	if (callback) {
+		callback({
+			list: list,
+			level: level,
+			prePivot: prePivot.list,
+			pivot: pivot,
+			postPivot: postPivot.list,
+			sorted: [...prePivot.list, pivot, ...postPivot.list],
+		});
+	}
+
+	return { list: [...prePivot.list, pivot, ...postPivot.list], level: level };
 };
 
-console.log(quickSort({ list: exampleList }));
+export const quickSort = (list: number[]) => {
+	let history: QuickSortProps[] = [];
+	quickSortAlgo({
+		list: list,
+		level: 0,
+		callback: (state) => history.push(state),
+	});
+
+	return history;
+};

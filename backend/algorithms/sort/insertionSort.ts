@@ -1,10 +1,4 @@
-interface InsertionSortProps {
-	list: number[];
-	sortedList?: number[];
-	target?: number;
-	index?: number;
-	callback?: (state: InsertionSortProps) => void;
-}
+import type { InsertionSortProps } from "../../../types/typesSort";
 
 const insertionSortAlgo = ({
 	list,
@@ -79,5 +73,3 @@ export const insertionSort = (list: number[]): InsertionSortProps[] => {
 
 	return history;
 };
-
-console.log(insertionSort([4, 11, 9, 38, 47, 12, 34]));
