@@ -10,17 +10,20 @@ import type { NodeLinearSearch, NodeBinarySearch } from "../../../../types/types
 // Utils
 import { getLinearSearch, getBinarySearch } from "../../utils/express";
 import AnimationHandler from "@/components/general/AnimationHandler";
+import { generateRandomArray } from "@/utils/functions";
 
-// Generate random array
-function generateRandomArray(): number[] {
-	const randomArray: number[] = [];
-	for (let i = 0; i < 12; i++) {
-		const randomNumber = Math.floor(Math.random() * 101); // Random number between 0 and 100
-		randomArray.push(randomNumber);
+const leftBracket = "[";
+const rightBracket = "]";
+
+function getNumberFormat(targetIndex: number, key: number): string {
+	if (targetIndex === key) {
+		return "border-b-2 border-black";
+	} else {
+		return "";
 	}
-	return randomArray;
 }
 
+// Page
 const page = () => {
 	const [list, setList] = useState<number[]>([]);
 	const [target, setTarget] = useState<{ item: number; index: number }>({ item: 0, index: 0 });
@@ -49,6 +52,7 @@ const page = () => {
 		fetch();
 	}, [target, list]);
 
+	// Handlers
 	const handleSetTarget = (i: { item: number; index: number }) => {
 		setTarget(i);
 	};
@@ -57,66 +61,62 @@ const page = () => {
 		setMode(newMode);
 	};
 
-	const leftBracket = "[";
-	const rightBracket = "]";
-
-	function getNumberFormat(targetIndex: number, key: number): string {
-		if (targetIndex === key) {
-			return "bg-sky-100";
-		} else {
-			return "";
-		}
-	}
+	// modesData
+	const modesData = [
+		{ name: "linear", data: linearData, component: Linear },
+		{ name: "binary", data: binaryData, component: Binary },
+	];
 
 	return (
 		<div className="p-4 w-full">
-			<p>Select number to search</p>
-			<ul className="w-full flex justify-between">
-				{leftBracket}
-				{list.map((item, key) => {
-					const format = getNumberFormat(target.index, key);
-					return (
-						<li key={key}>
+			<div className="flex border-b-2 border-gray-200 pb-2 mb-2">
+				<div className="flex-1 p-2">
+					<p className="text-xs py-1 italic">Select number to search</p>
+					<ul className="w-full flex justify-between">
+						{leftBracket}
+						{list.map((item, key) => {
+							const format = getNumberFormat(target.index, key);
+							return (
+								<li key={key}>
+									<button
+										onClick={() => handleSetTarget({ item, index: key })}
+										className={format}
+									>
+										{item}
+									</button>
+								</li>
+							);
+						})}
+						{rightBracket}
+					</ul>
+				</div>
+				<div className="flex flex-col justify-between border-l-2 border-black p-2">
+					<p className="text-xs py-1 italic">Select an algorithm</p>
+					{modesData.map((m, index) => {
+						const buttonStyle = m.name === mode ? "text-red-500" : "";
+						return (
 							<button
-								onClick={() => handleSetTarget({ item, index: key })}
-								className={format}
+								key={index}
+								onClick={() => handleSetMode(m.name)}
+								className={buttonStyle}
 							>
-								{item}
+								{m.name}
 							</button>
-						</li>
-					);
-				})}
-				{rightBracket}
-			</ul>
-			<div>Select Mode: {mode}</div>
-			<div className="flex justify-between">
-				<button
-					onClick={() => handleSetMode("linear")}
-					className="border-2 border-white rounded-lg"
-				>
-					linear
-				</button>
-				<button
-					onClick={() => handleSetMode("binary")}
-					className="border-2 border-white rounded-lg"
-				>
-					binary
-				</button>
+						);
+					})}
+				</div>
 			</div>
-			{mode === "linear" ? (
-				<>
-					<AnimationHandler data={linearData} Component={Linear} />
-				</>
-			) : (
-				<></>
-			)}
-			{mode === "binary" ? (
-				<>
-					<AnimationHandler data={binaryData} Component={Binary} />
-				</>
-			) : (
-				<></>
-			)}
+			<div>
+				{modesData.map((m, index) => {
+					if (mode === m.name && m.data !== undefined) {
+						return (
+							<AnimationHandler key={index} data={m.data} Component={m.component} />
+						);
+					} else {
+						return <></>;
+					}
+				})}
+			</div>
 		</div>
 	);
 };
