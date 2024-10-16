@@ -56,3 +56,13 @@ app.post("/algos/sort/selection", (req, res) => {
 	const algoOutput = selectionSort(node);
 	res.status(200).json(algoOutput);
 });
+
+// Insertion sort
+import { insertionSort } from "../algorithms/sort/insertionSort";
+
+app.post("/algos/sort/insertion", (req, res) => {
+	const { list } = req.body;
+	console.log(list);
+	const algoOutput = insertionSort(list);
+	res.status(200).json(algoOutput);
+});

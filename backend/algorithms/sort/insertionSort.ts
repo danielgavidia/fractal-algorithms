@@ -1,31 +1,39 @@
 interface InsertionSortProps {
 	list: number[];
-	sortedList: number[];
-	target: number;
-	index: number;
+	sortedList?: number[];
+	target?: number;
+	index?: number;
+	callback?: (state: InsertionSortProps) => void;
 }
 
-const exampleList = [9, 1, 7, 3, 5, 4, 10];
-
-const insertionSort = ({ list, sortedList, target, index }: InsertionSortProps) => {
+const insertionSortAlgo = ({
+	list,
+	sortedList = [],
+	target = list[0],
+	index = 0,
+	callback,
+}: InsertionSortProps) => {
 	const startingConfig = {
-		list: list,
-		sortedList: sortedList,
+		list: [...list],
+		sortedList: [...sortedList],
 		target: target,
 		index: index,
 	};
-	console.log(startingConfig);
+	if (callback) {
+		callback(startingConfig);
+	}
 
 	if (list.length === 0) {
 		return `Completed, sorted list: ${sortedList}`;
 	} else if (sortedList.length === 0) {
 		const newSortedList = [list[0]];
 		list.shift();
-		return insertionSort({
+		return insertionSortAlgo({
 			list: list,
 			sortedList: newSortedList,
 			target: list[0],
 			index: newSortedList.length - 1,
+			callback,
 		});
 	} else if (target > sortedList[index]) {
 		const newSortedList = [
@@ -34,36 +42,42 @@ const insertionSort = ({ list, sortedList, target, index }: InsertionSortProps) 
 			...sortedList.slice(index + 1),
 		];
 		list.shift();
-		return insertionSort({
+		return insertionSortAlgo({
 			list: list,
 			sortedList: newSortedList,
 			target: list[0],
 			index: newSortedList.length - 1,
+			callback,
 		});
 	} else if (target < sortedList[index] && index === 0) {
 		sortedList.unshift(target);
 		list.shift();
-		return insertionSort({
+		return insertionSortAlgo({
 			list: list,
 			sortedList: sortedList,
 			target: list[0],
 			index: sortedList.length - 1,
+			callback,
 		});
 	} else if (target < sortedList[index]) {
-		return insertionSort({
+		return insertionSortAlgo({
 			list: list,
 			sortedList: sortedList,
 			target: target,
 			index: index - 1,
+			callback,
 		});
 	}
 };
 
-console.log(
-	insertionSort({
-		list: exampleList,
-		sortedList: [],
-		target: exampleList[0],
-		index: 0,
-	})
-);
+export const insertionSort = (list: number[]): InsertionSortProps[] => {
+	let history: InsertionSortProps[] = [];
+	insertionSortAlgo({
+		list: list,
+		callback: (state) => history.push(state),
+	});
+
+	return history;
+};
+
+console.log(insertionSort([4, 11, 9, 38, 47, 12, 34]));
