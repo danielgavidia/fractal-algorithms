@@ -9,9 +9,10 @@ import type { NodeLinearSearch, NodeBinarySearch } from "../../../../types/types
 
 // Utils
 import { getLinearSearch, getBinarySearch } from "../../utils/express";
+import AnimationHandler from "@/components/general/AnimationHandler";
 
 const page = () => {
-	const [list, setList] = useState<number[]>([8, 12, 21, 33, 47]);
+	const [list, setList] = useState<number[]>([8, 12, 21, 33, 47, 52, 64, 71, 83, 94]);
 	const [newNumber, setNewNumber] = useState<number>(0);
 	const [target, setTarget] = useState<number>(0);
 	const [mode, setMode] = useState<string>("linear");
@@ -80,14 +81,14 @@ const page = () => {
 			</div>
 			{mode === "linear" ? (
 				<>
-					<Linear data={linearData} />
+					<AnimationHandler data={linearData} Component={Linear} />
 				</>
 			) : (
 				<></>
 			)}
 			{mode === "binary" ? (
 				<>
-					<Binary data={binaryData} />
+					<AnimationHandler data={binaryData} Component={Binary} />
 				</>
 			) : (
 				<></>

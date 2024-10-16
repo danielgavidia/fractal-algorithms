@@ -1,34 +1,14 @@
 import React from "react";
 import { NodeBinarySearch } from "../../../../types/typesSearch";
 
-// Main
-interface LinearProps {
-	data: NodeBinarySearch[];
-}
-
-// Component
-const Binary = ({ data }: LinearProps) => {
-	return (
-		<div className="text-green-400">
-			{data.map((node, key) => {
-				return <BinearAnimation key={key} node={node} />;
-			})}
-		</div>
-	);
-};
-
-export default Binary;
-
-// Animation
-interface BinearAnimationProps {
+interface BinearProps {
 	node: NodeBinarySearch;
 }
 
-const BinearAnimation = ({ node }: BinearAnimationProps) => {
-	const { list, target, L, R, m, success } = node;
-	const generalBackground = success ? "bg-white" : "";
+const Binary = ({ node }: BinearProps) => {
+	const { list, target, L, R, m } = node;
 
-	function getBorder(
+	function getBarStyle(
 		item: number,
 		key: number,
 		target: number,
@@ -36,27 +16,61 @@ const BinearAnimation = ({ node }: BinearAnimationProps) => {
 		R: number,
 		m: number
 	): string {
-		if (key === m) {
-			return "border-2 border-blue-900";
+		if (item === target && key === m) {
+			return "border-2 border-white bg-white";
+		} else if (key === m) {
+			return "border-2 border-white bg-blue-900";
 		} else if (key === L || key === R) {
-			return "border-2 border-red-900";
+			return "border-2 border-white bg-red-900";
 		} else if (item === target) {
-			return "border-2 border-green-900";
+			return "border-2 border-white bg-green-900";
 		} else {
-			return "";
+			return "border-2 border-white";
+		}
+	}
+
+	function getBarTag(
+		item: number,
+		key: number,
+		target: number,
+		L: number,
+		R: number,
+		m: number
+	): string {
+		if (item === target && key === m) {
+			return "Target + m";
+		} else if (key === m) {
+			return "m";
+		} else if (key === L) {
+			return "L";
+		} else if (key === R) {
+			return "R";
+		} else if (item === target) {
+			return "Target";
+		} else {
+			return "-";
 		}
 	}
 
 	return (
-		<ul className={"flex justify-between " + generalBackground}>
+		<ul className={"flex justify-between items-end"}>
 			{list.map((i, key) => {
-				const border = getBorder(i, key, target, L, R, m);
 				return (
-					<li key={key} className={border}>
-						{i}
+					<li className="flex-1 mx-1">
+						<div
+							key={key}
+							className={getBarStyle(i, key, target, L, R, m)}
+							style={{ height: `${i * 5}px` }}
+						></div>
+						<span className="block text-center">{i}</span>
+						<span className="block text-center">
+							{getBarTag(i, key, target, L, R, m)}
+						</span>
 					</li>
 				);
 			})}
 		</ul>
 	);
 };
+
+export default Binary;
