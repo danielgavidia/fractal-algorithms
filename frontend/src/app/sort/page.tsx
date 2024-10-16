@@ -3,25 +3,32 @@
 import React, { useEffect, useState } from "react";
 
 // Types
-import { NodeBubbleSort, NodeSelectionSort, InsertionSortProps } from "../../../../types/typesSort";
+import {
+	NodeBubbleSort,
+	NodeSelectionSort,
+	InsertionSortProps,
+	MergeSortProps,
+} from "../../../../types/typesSort";
 
 // Express utils
-import { getBubbleSort, getSelectionSort, getInsertionSort } from "@/utils/express";
+import { getBubbleSort, getSelectionSort, getInsertionSort, getMergeSort } from "@/utils/express";
 
 // Components
 import Bubble from "@/components/sort/Bubble";
 import Selection from "@/components/sort/Selection";
 import Insertion from "@/components/sort/Insertion";
+import Merge from "@/components/sort/Merge";
 
 const page = () => {
 	// const [list, setList] = useState<number[]>([49, 37, 27, 11, 7]);
-	const list = [49, 37, 27, 11, 7];
+	const list = [22, 13, 71, 49, 37, 27, 11, 7];
 	const [mode, setMode] = useState<string>("bubble");
 
 	// Data
 	const [bubbleData, setBubbleData] = useState<NodeBubbleSort[]>([]);
 	const [selectionData, setSelectionData] = useState<NodeSelectionSort[]>([]);
 	const [insertionData, setInsertionData] = useState<InsertionSortProps[]>([]);
+	const [mergeData, setMergeData] = useState<MergeSortProps[]>([]);
 
 	// Handlers
 	const handleSetMode = (mode: string) => {
@@ -29,7 +36,7 @@ const page = () => {
 	};
 
 	// const modes
-	const modes = ["bubble", "selection", "insertion"];
+	const modes = ["bubble", "selection", "insertion", "merge"];
 
 	// Fetch data
 	useEffect(() => {
@@ -40,6 +47,8 @@ const page = () => {
 			setSelectionData(resSelection);
 			const resInsertion: InsertionSortProps[] = await getInsertionSort(list);
 			setInsertionData(resInsertion);
+			const resMerge: MergeSortProps[] = await getMergeSort(list);
+			setMergeData(resMerge);
 		};
 		fetch();
 	}, [list]);
@@ -77,6 +86,13 @@ const page = () => {
 			{mode === "insertion" ? (
 				<>
 					<Insertion data={insertionData} />
+				</>
+			) : (
+				<></>
+			)}
+			{mode === "merge" ? (
+				<>
+					<Merge data={mergeData} />
 				</>
 			) : (
 				<></>
