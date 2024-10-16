@@ -1,7 +1,7 @@
-import type { Node } from "./Linear";
+import type { NodeLinearSearch } from "../../../types/typesSearch";
 
 interface LinearAnimationProps {
-	node: Node;
+	node: NodeLinearSearch;
 }
 
 const LinearAnimation = ({ node }: LinearAnimationProps) => {
@@ -22,8 +22,6 @@ const LinearAnimation = ({ node }: LinearAnimationProps) => {
 			<ul className={"flex justify-between " + generalBackground}>
 				{list.map((i, key) => {
 					const border = getBorder(i, key, index, target);
-					console.log("item", i);
-					console.log("target", target);
 					return (
 						<li key={key} className={border}>
 							{i}
