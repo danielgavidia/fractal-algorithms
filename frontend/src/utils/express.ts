@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import type { NodeLinearSearch, NodeBinarySearch } from "../../../types/typesSearch";
+import type { NodeBubbleSort, NodeSelectionSort } from "../../../types/typesSort";
 
 // Search: linear search
 export async function getLinearSearch(list: number[], target: number): Promise<NodeLinearSearch[]> {
@@ -29,10 +30,10 @@ export async function getBinarySearch(list: number[], target: number): Promise<N
 }
 
 // Sort: bubble sort
-export async function getBubbleSort(list: number[]): Promise<NodeBinarySearch[]> {
+export async function getBubbleSort(list: number[]): Promise<NodeBubbleSort[]> {
 	const res = await axios({
 		method: "POST",
-		url: "http://localhost:3001/algos/sort/binary",
+		url: "http://localhost:3001/algos/sort/bubble",
 		data: {
 			list: list,
 		},
@@ -41,10 +42,10 @@ export async function getBubbleSort(list: number[]): Promise<NodeBinarySearch[]>
 }
 
 // Sort: selection sort
-export async function getSelectionSort(list: number[]): Promise<NodeBinarySearch[]> {
+export async function getSelectionSort(list: number[]): Promise<NodeSelectionSort[]> {
 	const res = await axios({
 		method: "POST",
-		url: "http://localhost:3001/algos/sort/binary",
+		url: "http://localhost:3001/algos/sort/selection",
 		data: {
 			list: list,
 		},
