@@ -51,7 +51,7 @@ const AnimationHandler = ({ data, Component }: AnimationHandlerProps) => {
 	};
 
 	return (
-		<div className="flex flex-col text-green-400 w-full items-center">
+		<div className="flex flex-col w-full items-center">
 			<div className="flex space-x-4 mb-4 justify-between w-80">
 				<button onClick={startAnimation} className="bg-black text-white px-4 py-2 w-24">
 					Start

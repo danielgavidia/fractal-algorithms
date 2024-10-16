@@ -35,7 +35,7 @@ const page = () => {
 	// Generate random array
 	useEffect(() => {
 		const randomArray = generateRandomArray();
-		setList(randomArray);
+		setList(randomArray.toSorted());
 		setTarget({ item: randomArray[0], index: 0 });
 	}, []);
 
