@@ -1,6 +1,6 @@
 import React from "react";
 import BinearAnimation from "./BinaryAnimation";
-import { NodeBinarySearch } from "../../../../types/typesSearch";
+import { NodeBinarySearch } from "../../../types/typesSearch";
 
 interface LinearProps {
 	data: NodeBinarySearch[];

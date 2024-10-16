@@ -1,4 +1,4 @@
-import type { NodeLinearSearch } from "../../../../types/typesSearch";
+import type { NodeLinearSearch } from "../../../types/typesSearch";
 
 interface LinearAnimationProps {
 	node: NodeLinearSearch;

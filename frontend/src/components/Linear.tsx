@@ -1,6 +1,6 @@
 import React from "react";
 import LinearAnimation from "./LinearAnimation";
-import { NodeLinearSearch } from "../../../../types/typesSearch";
+import { NodeLinearSearch } from "../../../types/typesSearch";
 
 interface LinearProps {
 	data: NodeLinearSearch[];

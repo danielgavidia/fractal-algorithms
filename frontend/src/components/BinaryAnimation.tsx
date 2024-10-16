@@ -1,4 +1,4 @@
-import { NodeBinarySearch } from "../../../../types/typesSearch";
+import { NodeBinarySearch } from "../../../types/typesSearch";
 
 interface BinearAnimationProps {
 	node: NodeBinarySearch;

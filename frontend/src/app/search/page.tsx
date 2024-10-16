@@ -1,14 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Linear from "../components/Linear";
-import Binary from "../components/Binary";
+import Linear from "../../components/Linear";
+import Binary from "../../components/Binary";
 
 // Types
 import type { NodeLinearSearch, NodeBinarySearch } from "../../../../types/typesSearch";
 
 // Utils
-import { getLinearSearch, getBinarySearch } from "../utils/express";
+import { getLinearSearch, getBinarySearch } from "../../utils/express";
 
 const page = () => {
 	const [list, setList] = useState<number[]>([8, 12, 21, 33, 47]);

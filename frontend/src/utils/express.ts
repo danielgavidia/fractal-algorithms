@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import type { NodeLinearSearch, NodeBinarySearch } from "../../../../types/typesSearch";
+import type { NodeLinearSearch, NodeBinarySearch } from "../../../types/typesSearch";
 
 export async function getLinearSearch(list: number[], target: number): Promise<NodeLinearSearch[]> {
 	const res = await axios({
