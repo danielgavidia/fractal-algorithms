@@ -47,7 +47,7 @@ const quickSortAlgo = ({ list, level = 0, callback }: QuickSortProps): QuickSort
 };
 
 export const getQuickSort = (list: number[]) => {
-	let history: QuickSortProps[] = [];
+	const history: QuickSortProps[] = [];
 	quickSortAlgo({
 		list: list,
 		level: 0,

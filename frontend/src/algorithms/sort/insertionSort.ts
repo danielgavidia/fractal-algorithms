@@ -63,7 +63,7 @@ const insertionSortAlgo = ({
 };
 
 export const getInsertionSort = (list: number[]): InsertionSortProps[] => {
-	let history: InsertionSortProps[] = [];
+	const history: InsertionSortProps[] = [];
 	insertionSortAlgo({
 		list: [...list],
 		callback: (state) => history.push(state),
