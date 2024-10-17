@@ -1,14 +1,14 @@
-interface Graph {
-	[key: number]: number[];
-}
+// interface Graph {
+// 	[key: number]: number[];
+// }
 
-const exampleGraph: Graph = {
-	1: [2, 7, 8],
-	2: [3, 6],
-	3: [4, 5],
-	8: [9, 12],
-	9: [10, 11],
-};
+// const exampleGraph: Graph = {
+// 	1: [2, 7, 8],
+// 	2: [3, 6],
+// 	3: [4, 5],
+// 	8: [9, 12],
+// 	9: [10, 11],
+// };
 
 interface BreadthFirstSearchProps {
 	graph: Graph;
@@ -17,8 +17,8 @@ interface BreadthFirstSearchProps {
 }
 
 const breadthFirstSearch = ({ graph, target, startNode }: BreadthFirstSearchProps): boolean => {
-	let visited: Set<number> = new Set(); // To track visited nodes
-	let queue: number[] = [startNode]; // Use a queue to explore level by level
+	const visited: Set<number> = new Set(); // To track visited nodes
+	const queue: number[] = [startNode]; // Use a queue to explore level by level
 
 	// While there are nodes to visit in the queue
 	while (queue.length > 0) {
@@ -49,4 +49,4 @@ const breadthFirstSearch = ({ graph, target, startNode }: BreadthFirstSearchProp
 	return false;
 };
 
-console.log(breadthFirstSearch({ graph: exampleGraph, target: 11, startNode: 1 }));
+// console.log(breadthFirstSearch({ graph: exampleGraph, target: 11, startNode: 1 }));

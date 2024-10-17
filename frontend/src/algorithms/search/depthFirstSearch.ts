@@ -2,13 +2,13 @@ interface Graph {
 	[key: number]: number[];
 }
 
-const exampleGraph: Graph = {
-	1: [2, 7, 8],
-	2: [3, 6],
-	3: [4, 5],
-	8: [9, 12],
-	9: [10, 11],
-};
+// const exampleGraph: Graph = {
+// 	1: [2, 7, 8],
+// 	2: [3, 6],
+// 	3: [4, 5],
+// 	8: [9, 12],
+// 	9: [10, 11],
+// };
 
 interface DepthFirstSearchProps {
 	graph: Graph;
@@ -17,8 +17,8 @@ interface DepthFirstSearchProps {
 }
 
 const depthFirstSearch = ({ graph, target, startNode }: DepthFirstSearchProps) => {
-	let visited: Set<number> = new Set();
-	let stack: number[] = [startNode];
+	const visited: Set<number> = new Set();
+	const stack: number[] = [startNode];
 
 	while (stack.length > 0) {
 		const currentNode = stack.pop()!;
@@ -40,4 +40,4 @@ const depthFirstSearch = ({ graph, target, startNode }: DepthFirstSearchProps) =
 	return false;
 };
 
-console.log(depthFirstSearch({ graph: exampleGraph, target: 11, startNode: 1 }));
+// console.log(depthFirstSearch({ graph: exampleGraph, target: 11, startNode: 1 }));

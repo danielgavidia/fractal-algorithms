@@ -1,6 +1,6 @@
 type Node = {
-	list: any[];
-	target: any;
+	list: number[];
+	target: number;
 	index?: number;
 	success?: boolean;
 	childNode?: Node;
@@ -43,7 +43,7 @@ const linearSearchAlgo = (node: Node) => {
 
 const linearSearchDecode = (node: Node, array: Node[]): Node[] => {
 	if (node.childNode === undefined) {
-		let newArr = [...array];
+		const newArr = [...array];
 		newArr.push({
 			list: node.list,
 			target: node.target,
@@ -52,7 +52,7 @@ const linearSearchDecode = (node: Node, array: Node[]): Node[] => {
 		});
 		return newArr;
 	} else {
-		let newArr = [...array];
+		const newArr = [...array];
 		newArr.push({
 			list: node.list,
 			target: node.target,

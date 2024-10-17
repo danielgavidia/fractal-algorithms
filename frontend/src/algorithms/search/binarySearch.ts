@@ -58,7 +58,7 @@ const binarySearchAlgo = (node: Node): Node => {
 
 const binarySearchDecode = (node: Node, array: Node[]): Node[] => {
 	if (node.childNode === undefined) {
-		let newArr = [...array];
+		const newArr = [...array];
 		newArr.push({
 			list: node.list,
 			target: node.target,
@@ -69,7 +69,7 @@ const binarySearchDecode = (node: Node, array: Node[]): Node[] => {
 		});
 		return newArr;
 	} else {
-		let newArr = [...array];
+		const newArr = [...array];
 		newArr.push({
 			list: node.list,
 			target: node.target,
