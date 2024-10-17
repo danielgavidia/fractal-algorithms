@@ -78,32 +78,31 @@ const page = () => {
 
 	return (
 		<div className="p-4 w-full max-w-2xl mx-auto">
-			<div className="flex pb-2 mb-2">
-				<div className="flex-1 p-2">
-					<p className="text-xs py-1 italic">Select number to search</p>
-					<ul className="w-full flex justify-between py-2">
-						{leftBracket}
-						{list.map((item, key) => {
-							const format = getNumberFormat(target.index, key);
-							return (
-								<li key={key}>
-									<button
-										onClick={() => handleSetTarget({ item, index: key })}
-										className={format + " hover:text-red-500"}
-									>
-										{item}
-									</button>
-								</li>
-							);
-						})}
-						{rightBracket}
-						<button onClick={() => handleSetList()} className="w-10 hover:text-red-500">
-							<FontAwesomeIcon icon={faArrowsRotate} />
-						</button>
-					</ul>
-				</div>
-				<div className="flex flex-col justify-between border-l-2 border-black p-2">
-					<p className="text-xs py-1 italic">Select an algorithm</p>
+			<div className="flex-1 p-2 mb-2 border-b-2 border-gray-200">
+				<ul className="w-full flex justify-between py-2">
+					{leftBracket}
+					{list.map((item, key) => {
+						const format = getNumberFormat(target.index, key);
+						return (
+							<li key={key}>
+								<button
+									onClick={() => handleSetTarget({ item, index: key })}
+									className={format + " hover:text-red-500"}
+								>
+									{item}
+								</button>
+							</li>
+						);
+					})}
+					{rightBracket}
+					<button onClick={() => handleSetList()} className="w-10 hover:text-red-500">
+						<FontAwesomeIcon icon={faArrowsRotate} />
+					</button>
+				</ul>
+			</div>
+			<div className="flex flex-col justify-between p-2 w-full border-b-2 border-gray-200 mb-2">
+				<p className="text-xs py-1 italic">Select an algorithm</p>
+				<ul className="flex justify-center space-x-4">
 					{modesData.map((m, index) => {
 						const buttonStyle = m.name === mode ? "text-red-500" : "";
 						return (
@@ -112,11 +111,13 @@ const page = () => {
 								onClick={() => handleSetMode(m.name)}
 								className={buttonStyle + " hover:text-red-500"}
 							>
+								{leftBracket}
 								{m.name}
+								{rightBracket}
 							</button>
 						);
 					})}
-				</div>
+				</ul>
 			</div>
 			<div>
 				{modesData.map((m, index) => {

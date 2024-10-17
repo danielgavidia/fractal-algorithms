@@ -11,7 +11,7 @@ import {
 	QuickSortProps,
 } from "../../../../types/typesSort";
 
-// Express utils
+// Utils
 import {
 	getBubbleSort,
 	getSelectionSort,
@@ -19,6 +19,7 @@ import {
 	getMergeSort,
 	getQuickSort,
 } from "@/utils/express";
+import { generateRandomArray } from "@/utils/functions";
 
 // Components
 import AnimationHandler from "@/components/general/AnimationHandler";
@@ -28,8 +29,16 @@ import Insertion from "@/components/sort/Insertion";
 import Merge from "@/components/sort/Merge";
 import Quick from "@/components/sort/Quick";
 
+// Icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
+
+const leftBracket = "[";
+const rightBracket = "]";
+
+// Page
 const page = () => {
-	const list = [22, 13, 71, 49, 37, 27, 11, 7, 42, 67, 103];
+	const [list, setList] = useState<number[]>([]);
 	const [mode, setMode] = useState<string>("bubble");
 
 	// Data
@@ -39,9 +48,41 @@ const page = () => {
 	const [mergeData, setMergeData] = useState<MergeSortProps[]>([]);
 	const [quickData, setQuickData] = useState<QuickSortProps[]>([]);
 
+	// Generate random array
+	useEffect(() => {
+		const randomArray = generateRandomArray();
+		setList(randomArray);
+	}, []);
+
+	// console.log(list);
+
+	// Fetch data
+	useEffect(() => {
+		const fetch = async () => {
+			if (list.length > 0) {
+				const resBubble: NodeBubbleSort[] = await getBubbleSort(list);
+				setBubbleData(resBubble);
+				const resSelection: NodeSelectionSort[] = await getSelectionSort(list);
+				setSelectionData(resSelection);
+				const resInsertion: InsertionSortProps[] = await getInsertionSort(list);
+				setInsertionData(resInsertion);
+				const resMerge: MergeSortProps[] = await getMergeSort(list);
+				setMergeData(resMerge);
+				const resQuick: QuickSortProps[] = await getQuickSort(list);
+				setQuickData(resQuick);
+			}
+		};
+		fetch();
+	}, [list]);
+
 	// Handlers
 	const handleSetMode = (mode: string) => {
 		setMode(mode);
+	};
+
+	const handleSetList = () => {
+		const randomArray = generateRandomArray();
+		setList(randomArray);
 	};
 
 	// modesData
@@ -53,48 +94,48 @@ const page = () => {
 		{ name: "quick", data: quickData, component: Quick },
 	];
 
-	// Fetch data
-	useEffect(() => {
-		const fetch = async () => {
-			const resBubble: NodeBubbleSort[] = await getBubbleSort(list);
-			setBubbleData(resBubble);
-			const resSelection: NodeSelectionSort[] = await getSelectionSort(list);
-			setSelectionData(resSelection);
-			const resInsertion: InsertionSortProps[] = await getInsertionSort(list);
-			setInsertionData(resInsertion);
-			const resMerge: MergeSortProps[] = await getMergeSort(list);
-			setMergeData(resMerge);
-			const resQuick: QuickSortProps[] = await getQuickSort(list);
-			setQuickData(resQuick);
-		};
-		fetch();
-	}, [mode]);
-
 	return (
-		<div>
-			<h2>Sort Algos</h2>
-			<div>Select Mode: {mode}</div>
-			<div className="flex justify-between">
-				{modesData.map((m, key) => (
-					<button key={key} onClick={() => handleSetMode(m.name)}>
-						{m.name}
+		<div className="p-4 w-full max-w-2xl mx-auto">
+			<div className="flex-1 p-2 mb-2 border-b-2 border-gray-200">
+				<ul className="w-full flex justify-between py-2">
+					{leftBracket}
+					{list.map((item, key) => {
+						return <li key={key}>{item}</li>;
+					})}
+					{rightBracket}
+					<button onClick={() => handleSetList()} className="w-10 hover:text-red-500">
+						<FontAwesomeIcon icon={faArrowsRotate} />
 					</button>
-				))}
+				</ul>
 			</div>
-			<ul className="w-full flex justify-between">
-				{list.map((item, index) => (
-					<li key={index}>{item}</li>
-				))}
-			</ul>
-			<ul className="h-full">
-				{modesData.map((m) => {
+			<div className="flex flex-col justify-between p-2 w-full border-b-2 border-gray-200 mb-2">
+				<p className="text-xs py-1 italic">Select an algorithm</p>
+				<ul className="flex justify-center space-x-4">
+					{modesData.map((m, index) => {
+						const buttonStyle = m.name === mode ? "text-red-500" : "";
+						return (
+							<button
+								key={index}
+								onClick={() => handleSetMode(m.name)}
+								className={buttonStyle + " hover:text-red-500"}
+							>
+								{leftBracket}
+								{m.name}
+								{rightBracket}
+							</button>
+						);
+					})}
+				</ul>
+			</div>
+			<div>
+				{modesData.map((m, index) => {
 					if (mode === m.name && m.data !== undefined) {
-						return <AnimationHandler data={m.data} Component={m.component} />;
+						return <AnimationHandler key={index} data={m.data} Component={m.component} />;
 					} else {
 						return <></>;
 					}
 				})}
-			</ul>
+			</div>
 		</div>
 	);
 };

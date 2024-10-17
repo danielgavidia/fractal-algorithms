@@ -16,7 +16,7 @@ const Linear = ({ node }: LinearProps) => {
 		} else if (item === target) {
 			return "bg-red-500";
 		} else {
-			return "";
+			return "bg-gray-300";
 		}
 	}
 
@@ -26,27 +26,27 @@ const Linear = ({ node }: LinearProps) => {
 		} else if (key === index) {
 			return "Index";
 		} else {
-			return "-";
+			return ".";
 		}
 	}
 
 	return (
-		<ul className={"flex justify-between items-end h-full"}>
-			{list.map((i, key) => {
-				const barStyle = getBarStyle(i, key, index, target);
-				const caption = getCaption(i, key, index, target);
-				return (
-					<li key={key} className="flex-1 mx-1 w-10">
-						<div
-							className={`border-[0.5px] border-black ${barStyle}`}
-							style={{ height: `${i * 3}px` }}
-						></div>
-						<span className="block text-center">{i}</span>
-						<span className="block text-center text-xs">{caption}</span>
-					</li>
-				);
-			})}
-		</ul>
+		<div className="h-full">
+			<p className="h-12 text-xs italic">Target: {target}</p>
+			<ul className={"flex justify-between items-end h-full"}>
+				{list.map((i, key) => {
+					const barStyle = getBarStyle(i, key, index, target);
+					const caption = getCaption(i, key, index, target);
+					return (
+						<li key={key} className="flex-1 mx-1 w-10">
+							<div className={barStyle} style={{ height: `${i * 3}px` }}></div>
+							<span className="block text-center">{i}</span>
+							<span className="block text-center text-sm">{caption}</span>
+						</li>
+					);
+				})}
+			</ul>
+		</div>
 	);
 };
 
