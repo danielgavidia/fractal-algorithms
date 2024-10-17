@@ -40,8 +40,8 @@ const Linear = ({ node }: LinearProps) => {
 					return (
 						<li key={key} className="flex-1 mx-1 w-10">
 							<div className={barStyle} style={{ height: `${i * 2}px` }}></div>
-							<span className="block text-center">{i}</span>
-							<span className="block text-center text-sm">{caption}</span>
+							<span className="block text-center text-xs pt-2">{i}</span>
+							<span className="block text-center text-xs">{caption}</span>
 						</li>
 					);
 				})}
