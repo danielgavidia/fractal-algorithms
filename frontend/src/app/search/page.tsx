@@ -77,11 +77,11 @@ const page = () => {
 	];
 
 	return (
-		<div className="p-4 w-full">
-			<div className="flex border-b-2 border-gray-200 pb-2 mb-2">
+		<div className="p-4 w-full max-w-2xl mx-auto">
+			<div className="flex pb-2 mb-2">
 				<div className="flex-1 p-2">
 					<p className="text-xs py-1 italic">Select number to search</p>
-					<ul className="w-full flex justify-between">
+					<ul className="w-full flex justify-between py-2">
 						{leftBracket}
 						{list.map((item, key) => {
 							const format = getNumberFormat(target.index, key);
@@ -97,19 +97,21 @@ const page = () => {
 							);
 						})}
 						{rightBracket}
-					</ul>
-					<div className="w-full flex justify-center p-2">
 						<button onClick={() => handleSetList()} className="w-10 hover:text-red-500">
 							<FontAwesomeIcon icon={faArrowsRotate} />
 						</button>
-					</div>
+					</ul>
 				</div>
 				<div className="flex flex-col justify-between border-l-2 border-black p-2">
 					<p className="text-xs py-1 italic">Select an algorithm</p>
 					{modesData.map((m, index) => {
 						const buttonStyle = m.name === mode ? "text-red-500" : "";
 						return (
-							<button key={index} onClick={() => handleSetMode(m.name)} className={buttonStyle}>
+							<button
+								key={index}
+								onClick={() => handleSetMode(m.name)}
+								className={buttonStyle + " hover:text-red-500"}
+							>
 								{m.name}
 							</button>
 						);

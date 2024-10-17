@@ -77,7 +77,7 @@ const AnimationHandler = ({ data, Component }: AnimationHandlerProps) => {
 
 	return (
 		<div className="flex flex-col w-full items-center">
-			<div className="flex space-x-4 mb-4 justify-between w-80">
+			<div className="flex space-x-4 mb-4 justify-center w-full">
 				{actions.map((a, key) => {
 					const format =
 						a.action === action
@@ -91,7 +91,7 @@ const AnimationHandler = ({ data, Component }: AnimationHandlerProps) => {
 				})}
 			</div>
 			<p className="w-80 text-xs text-center">{speed} ms</p>
-			<div className="flex justify-between items-center w-80">
+			<div className="flex space-x-4 justify-center items-center w-full border-b-2 border-gray-200 p-2">
 				<button onClick={() => handleSetSpeed(false)} className="p-2 hover:text-red-500">
 					-
 				</button>
@@ -107,13 +107,15 @@ const AnimationHandler = ({ data, Component }: AnimationHandlerProps) => {
 					+
 				</button>
 			</div>
-			{data !== undefined && data.length > 0 && data[currentIndex] !== undefined ? (
-				<>
-					<Component node={data[currentIndex]} />
-				</>
-			) : (
-				<></>
-			)}
+			<div className="p-6 h-96">
+				{data !== undefined && data.length > 0 && data[currentIndex] !== undefined ? (
+					<>
+						<Component node={data[currentIndex]} />
+					</>
+				) : (
+					<></>
+				)}
+			</div>
 		</div>
 	);
 };

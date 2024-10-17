@@ -31,7 +31,7 @@ const Binary = ({ node }: BinearProps) => {
 		}
 	}
 
-	function getBarTag(
+	function getCaption(
 		item: number,
 		key: number,
 		target: number,
@@ -39,35 +39,29 @@ const Binary = ({ node }: BinearProps) => {
 		R: number,
 		m: number
 	): string {
-		if (item === target && key === m) {
-			return "Target & m";
+		if (item === target) {
+			return "Target";
 		} else if (key === m) {
 			return "m";
 		} else if (key === L) {
 			return "L";
 		} else if (key === R) {
 			return "R";
-		} else if (item === target) {
-			return "Target";
 		} else {
 			return "-";
 		}
 	}
 
 	return (
-		<ul className={"flex justify-between items-end"}>
+		<ul className={"flex justify-between items-end h-full"}>
 			{list.map((i, key) => {
+				const barStyle = getBarStyle(i, key, target, L, R, m);
+				const caption = getCaption(i, key, target, L, R, m);
 				return (
 					<li className="flex-1 mx-1 w-10">
-						<div
-							key={key}
-							className={getBarStyle(i, key, target, L, R, m)}
-							style={{ height: `${i * 5}px` }}
-						></div>
+						<div key={key} className={barStyle} style={{ height: `${i * 3}px` }}></div>
 						<span className="block text-center">{i}</span>
-						<span className="block text-center text-xs">
-							{getBarTag(i, key, target, L, R, m)}
-						</span>
+						<span className="block text-center text-xs">{caption}</span>
 					</li>
 				);
 			})}
