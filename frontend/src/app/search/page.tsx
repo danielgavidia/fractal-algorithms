@@ -5,7 +5,7 @@ import Linear from "../../components/search/Linear";
 import Binary from "../../components/search/Binary";
 
 // Types
-import type { NodeLinearSearch, NodeBinarySearch } from "../../../../types/typesSearch";
+import type { NodeLinearSearch, NodeBinarySearch } from "../../../../backend/types/typesSearch";
 
 // Utils
 import { getLinearSearch, getBinarySearch } from "../../utils/express";
@@ -28,7 +28,7 @@ function getNumberFormat(targetIndex: number, key: number): string {
 }
 
 // Page
-const page = () => {
+const Page = () => {
 	const [list, setList] = useState<number[]>([]);
 	const [target, setTarget] = useState<{ item: number; index: number }>({ item: 0, index: 0 });
 	const [mode, setMode] = useState<string>("linear");
@@ -132,4 +132,4 @@ const page = () => {
 	);
 };
 
-export default page;
+export default Page;

@@ -9,7 +9,7 @@ import {
 	InsertionSortProps,
 	MergeSortProps,
 	QuickSortProps,
-} from "../../../../types/typesSort";
+} from "../../../../backend/types/typesSort";
 
 // Utils
 import {
@@ -37,7 +37,7 @@ const leftBracket = "[";
 const rightBracket = "]";
 
 // Page
-const page = () => {
+const Page = () => {
 	const [list, setList] = useState<number[]>([]);
 	const [mode, setMode] = useState<string>("bubble");
 
@@ -140,4 +140,4 @@ const page = () => {
 	);
 };
 
-export default page;
+export default Page;

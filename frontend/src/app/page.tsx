@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-const page = () => {
+const Page = () => {
 	const algosTypes = ["search", "sort"];
 	return (
 		<ul className="flex w-full h-96 items-center justify-center">
@@ -19,4 +19,4 @@ const page = () => {
 	);
 };
 
-export default page;
+export default Page;
