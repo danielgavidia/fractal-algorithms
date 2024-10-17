@@ -16,7 +16,7 @@ interface DepthFirstSearchProps {
 	startNode: number;
 }
 
-const depthFirstSearch = ({ graph, target, startNode }: DepthFirstSearchProps) => {
+export const depthFirstSearch = ({ graph, target, startNode }: DepthFirstSearchProps) => {
 	const visited: Set<number> = new Set();
 	const stack: number[] = [startNode];
 

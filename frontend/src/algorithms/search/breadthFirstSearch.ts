@@ -1,6 +1,6 @@
-// interface Graph {
-// 	[key: number]: number[];
-// }
+interface Graph {
+	[key: number]: number[];
+}
 
 // const exampleGraph: Graph = {
 // 	1: [2, 7, 8],
@@ -16,7 +16,11 @@ interface BreadthFirstSearchProps {
 	startNode: number;
 }
 
-const breadthFirstSearch = ({ graph, target, startNode }: BreadthFirstSearchProps): boolean => {
+export const breadthFirstSearch = ({
+	graph,
+	target,
+	startNode,
+}: BreadthFirstSearchProps): boolean => {
 	const visited: Set<number> = new Set(); // To track visited nodes
 	const queue: number[] = [startNode]; // Use a queue to explore level by level
 
