@@ -7,8 +7,11 @@ import Binary from "../../components/search/Binary";
 // Types
 import type { NodeLinearSearch, NodeBinarySearch } from "../../../../types/typesSearch";
 
+// Algos
+import { getLinearSearch } from "@/algorithms/search/linearSearch";
+import { getBinarySearch } from "@/algorithms/search/binarySearch";
+
 // Utils
-import { getLinearSearch, getBinarySearch } from "../../utils/express";
 import AnimationHandler from "@/components/general/AnimationHandler";
 import { generateRandomArray } from "@/utils/functions";
 

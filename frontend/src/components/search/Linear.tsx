@@ -11,6 +11,10 @@ interface LinearProps {
 const Linear = ({ node, target }: LinearProps) => {
 	const { list, index } = node;
 
+	if (index === undefined) {
+		return;
+	}
+
 	function getBarStyle(item: number, key: number, index: number, target: number): string {
 		if (key === index && item === target) {
 			return "bg-green-500";
