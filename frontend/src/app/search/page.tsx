@@ -10,89 +10,123 @@ import type { NodeLinearSearch, NodeBinarySearch } from "../../../../types/types
 // Utils
 import { getLinearSearch, getBinarySearch } from "../../utils/express";
 import AnimationHandler from "@/components/general/AnimationHandler";
+import { generateRandomArray } from "@/utils/functions";
 
+// Icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
+
+const leftBracket = "[";
+const rightBracket = "]";
+
+function getNumberFormat(targetIndex: number, key: number): string {
+	if (targetIndex === key) {
+		return "border-b-2 border-black";
+	} else {
+		return "";
+	}
+}
+
+// Page
 const page = () => {
-	const [list, setList] = useState<number[]>([8, 12, 21, 33, 47, 52, 64, 71, 83, 94]);
-	const [newNumber, setNewNumber] = useState<number>(0);
-	const [target, setTarget] = useState<number>(0);
+	const [list, setList] = useState<number[]>([]);
+	const [target, setTarget] = useState<{ item: number; index: number }>({ item: 0, index: 0 });
 	const [mode, setMode] = useState<string>("linear");
 
 	const [linearData, setLinearData] = useState<NodeLinearSearch[]>([]);
 	const [binaryData, setBinaryData] = useState<NodeBinarySearch[]>([]);
 
+	// Generate random array
+	useEffect(() => {
+		const randomArray = generateRandomArray().sort((a, b) => a - b);
+		setList(randomArray);
+		setTarget({ item: randomArray[0], index: 0 });
+	}, []);
+
+	// Fetch linear and binary search data
 	useEffect(() => {
 		const fetch = async () => {
-			const resLinear: NodeLinearSearch[] = await getLinearSearch(list, target);
-			setLinearData(resLinear);
-			const resBinary: NodeBinarySearch[] = await getBinarySearch(list, target);
-			setBinaryData(resBinary);
+			if (list.length > 0) {
+				const resLinear: NodeLinearSearch[] = await getLinearSearch(list, target.item);
+				setLinearData(resLinear);
+				const resBinary: NodeBinarySearch[] = await getBinarySearch(list, target.item);
+				setBinaryData(resBinary);
+			}
 		};
 		fetch();
 	}, [target, list]);
 
-	const handleSetTarget = (i: number) => {
-		setTarget(i);
+	// Handlers
+	const handleSetList = () => {
+		const randomArray = generateRandomArray().sort((a, b) => a - b);
+		setList(randomArray);
 	};
 
-	const handleAddToList = (e: React.FormEvent) => {
-		e.preventDefault();
-		setList([...list, newNumber]);
-		setNewNumber(0);
+	const handleSetTarget = (i: { item: number; index: number }) => {
+		setTarget(i);
 	};
 
 	const handleSetMode = (newMode: string) => {
 		setMode(newMode);
 	};
 
+	// modesData
+	const modesData = [
+		{ name: "linear", data: linearData, component: Linear },
+		{ name: "binary", data: binaryData, component: Binary },
+	];
+
 	return (
-		<div className="p-4 w-full">
-			<h2>Search Algos</h2>
-			<form onSubmit={handleAddToList} className="w-full">
-				<input
-					value={newNumber}
-					onChange={(e) => setNewNumber(Number(e.target.value))}
-					placeholder="Add number to list"
-					className="w-full text-black"
-				/>
-				<button onClick={handleAddToList}>+</button>
-			</form>
-			<div>Target: {target}</div>
-			<ul className="w-full flex justify-between">
-				{list.map((item, index) => (
-					<li key={index}>
-						<button onClick={() => handleSetTarget(item)}>{item}</button>
-					</li>
-				))}
-			</ul>
-			<div>Select Mode: {mode}</div>
-			<div className="flex justify-between">
-				<button
-					onClick={() => handleSetMode("linear")}
-					className="border-2 border-white rounded-lg"
-				>
-					linear
-				</button>
-				<button
-					onClick={() => handleSetMode("binary")}
-					className="border-2 border-white rounded-lg"
-				>
-					binary
-				</button>
+		<div className="p-4 w-full max-w-2xl mx-auto">
+			<div className="flex pb-2 mb-2">
+				<div className="flex-1 p-2">
+					<p className="text-xs py-1 italic">Select number to search</p>
+					<ul className="w-full flex justify-between py-2">
+						{leftBracket}
+						{list.map((item, key) => {
+							const format = getNumberFormat(target.index, key);
+							return (
+								<li key={key}>
+									<button
+										onClick={() => handleSetTarget({ item, index: key })}
+										className={format + " hover:text-red-500"}
+									>
+										{item}
+									</button>
+								</li>
+							);
+						})}
+						{rightBracket}
+						<button onClick={() => handleSetList()} className="w-10 hover:text-red-500">
+							<FontAwesomeIcon icon={faArrowsRotate} />
+						</button>
+					</ul>
+				</div>
+				<div className="flex flex-col justify-between border-l-2 border-black p-2">
+					<p className="text-xs py-1 italic">Select an algorithm</p>
+					{modesData.map((m, index) => {
+						const buttonStyle = m.name === mode ? "text-red-500" : "";
+						return (
+							<button
+								key={index}
+								onClick={() => handleSetMode(m.name)}
+								className={buttonStyle + " hover:text-red-500"}
+							>
+								{m.name}
+							</button>
+						);
+					})}
+				</div>
 			</div>
-			{mode === "linear" ? (
-				<>
-					<AnimationHandler data={linearData} Component={Linear} />
-				</>
-			) : (
-				<></>
-			)}
-			{mode === "binary" ? (
-				<>
-					<AnimationHandler data={binaryData} Component={Binary} />
-				</>
-			) : (
-				<></>
-			)}
+			<div>
+				{modesData.map((m, index) => {
+					if (mode === m.name && m.data !== undefined) {
+						return <AnimationHandler key={index} data={m.data} Component={m.component} />;
+					} else {
+						return <></>;
+					}
+				})}
+			</div>
 		</div>
 	);
 };

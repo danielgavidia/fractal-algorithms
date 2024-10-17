@@ -1,23 +1,21 @@
-import React from "react";
 import Link from "next/link";
+import React from "react";
 
 const page = () => {
+	const algosTypes = ["search", "sort"];
 	return (
-		<div>
-			<nav>
-				<ul className="flex">
-					<li className="flex-1 p-4 border-2 border-gray-100">
-						<Link href="/">Fractal Algorithms</Link>
-					</li>
-					<li className="p-4 border-2 border-gray-100 w-20 flex justify-center">
-						<Link href="/search">Search</Link>
-					</li>
-					<li className="p-4 border-2 border-gray-100 w-20 flex justify-center">
-						<Link href="/sort">Sort</Link>
-					</li>
-				</ul>
-			</nav>
-		</div>
+		<ul className="flex w-full h-96 items-center justify-center">
+			{algosTypes.map((algo, key) => (
+				<li
+					key={key}
+					className="w-40 h-40 border-[0.5px] border-gray-500 flex items-center justify-center m-10 hover:bg-black hover:text-white"
+				>
+					<Link href={`/${algo}`} className="w-full h-full flex justify-center items-center">
+						<p>{algo}</p>
+					</Link>
+				</li>
+			))}
+		</ul>
 	);
 };
 
