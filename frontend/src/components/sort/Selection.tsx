@@ -14,13 +14,13 @@ const Selection = ({ node }: SelectionProps) => {
 		iteration: number | undefined
 	): string {
 		if (key === index) {
-			return "border-[0.5px] border-black bg-red-500";
+			return "bg-red-500";
 		} else if (key === indexLowest) {
-			return "border-[0.5px] border-black bg-green-500";
+			return "bg-green-500";
 		} else if (iteration !== undefined && key < iteration) {
-			return "border-[0.5px] border-black bg-black";
+			return "bg-black";
 		} else {
-			return "border-[0.5px] border-black";
+			return "bg-gray-300";
 		}
 	}
 
@@ -34,7 +34,7 @@ const Selection = ({ node }: SelectionProps) => {
 		} else if (key === indexLowest) {
 			return "lowest";
 		}
-		return "-";
+		return ".";
 	}
 
 	return (

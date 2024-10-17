@@ -14,18 +14,18 @@ const Bubble = ({ node }: BubbleProps) => {
 		iteration: number | undefined
 	): string {
 		if (key === index) {
-			return "border-[0.5px] border-black bg-green-500";
+			return "bg-red-500";
 		} else if (iteration !== undefined && key > list.length - iteration - 1) {
-			return "border-[0.5px] border-black bg-black";
+			return "bg-black";
 		}
-		return "border-[0.5px] border-black";
+		return "bg-gray-300";
 	}
 
 	function getCaption(key: number, index: number | undefined): string {
 		if (key === index) {
 			return "index";
 		}
-		return "-";
+		return ".";
 	}
 
 	return (

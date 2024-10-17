@@ -15,11 +15,11 @@ const Insertion = ({ node }: InsertionProps) => {
 		index: number | undefined
 	): string {
 		if (key === index) {
-			return "border-[0.5px] border-black bg-red-500";
+			return "bg-red-500";
 		} else if (item === target) {
-			return "border-[0.5px] border-black bg-green-500";
+			return "bg-green-500";
 		}
-		return "border-[0.5px] border-black";
+		return "bg-gray-300";
 	}
 
 	function getCaption(
@@ -33,7 +33,7 @@ const Insertion = ({ node }: InsertionProps) => {
 		} else if (item === target) {
 			return "Target";
 		}
-		return "-";
+		return ".";
 	}
 
 	return (
@@ -45,12 +45,8 @@ const Insertion = ({ node }: InsertionProps) => {
 						sortedList.map((i, key) => {
 							return (
 								<li key={key} className="flex-1 mx-1 items-center">
-									<div
-										style={{ height: `${i * 1}px` }}
-										className="border-[0.5px] border-black bg-black"
-									></div>
+									<div style={{ height: `${i * 1}px` }} className="bg-black"></div>
 									<div className="text-center text-sm">{i}</div>
-									<div className="text-center text-sm">-</div>
 								</li>
 							);
 						})}
