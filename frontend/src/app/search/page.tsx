@@ -79,7 +79,6 @@ const page = () => {
 	return (
 		<div className="p-4 w-full max-w-2xl mx-auto">
 			<div className="flex-1 p-2 mb-2 border-b-2 border-gray-200">
-				<p className="text-xs py-1 italic">Select number to search</p>
 				<ul className="w-full flex justify-between py-2">
 					{leftBracket}
 					{list.map((item, key) => {

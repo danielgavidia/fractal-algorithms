@@ -54,6 +54,27 @@ const page = () => {
 		setList(randomArray);
 	}, []);
 
+	// console.log(list);
+
+	// Fetch data
+	useEffect(() => {
+		const fetch = async () => {
+			if (list.length > 0) {
+				const resBubble: NodeBubbleSort[] = await getBubbleSort(list);
+				setBubbleData(resBubble);
+				const resSelection: NodeSelectionSort[] = await getSelectionSort(list);
+				setSelectionData(resSelection);
+				const resInsertion: InsertionSortProps[] = await getInsertionSort(list);
+				setInsertionData(resInsertion);
+				const resMerge: MergeSortProps[] = await getMergeSort(list);
+				setMergeData(resMerge);
+				const resQuick: QuickSortProps[] = await getQuickSort(list);
+				setQuickData(resQuick);
+			}
+		};
+		fetch();
+	}, [list]);
+
 	// Handlers
 	const handleSetMode = (mode: string) => {
 		setMode(mode);
@@ -72,23 +93,6 @@ const page = () => {
 		{ name: "merge", data: mergeData, component: Merge },
 		{ name: "quick", data: quickData, component: Quick },
 	];
-
-	// Fetch data
-	useEffect(() => {
-		const fetch = async () => {
-			const resBubble: NodeBubbleSort[] = await getBubbleSort(list);
-			setBubbleData(resBubble);
-			const resSelection: NodeSelectionSort[] = await getSelectionSort(list);
-			setSelectionData(resSelection);
-			const resInsertion: InsertionSortProps[] = await getInsertionSort(list);
-			setInsertionData(resInsertion);
-			const resMerge: MergeSortProps[] = await getMergeSort(list);
-			setMergeData(resMerge);
-			const resQuick: QuickSortProps[] = await getQuickSort(list);
-			setQuickData(resQuick);
-		};
-		fetch();
-	}, [mode]);
 
 	return (
 		<div className="p-4 w-full max-w-2xl mx-auto">

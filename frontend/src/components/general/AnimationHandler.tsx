@@ -107,7 +107,7 @@ const AnimationHandler = ({ data, Component }: AnimationHandlerProps) => {
 					+
 				</button>
 			</div>
-			<div className="p-6 h-96">
+			<div className="p-4 h-96 w-full">
 				{data !== undefined && data.length > 0 && data[currentIndex] !== undefined ? (
 					<>
 						<Component node={data[currentIndex]} />
