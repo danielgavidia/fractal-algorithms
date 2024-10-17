@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 // Types
 import {
-	NodeBubbleSort,
+	BubbleSortProps,
 	NodeSelectionSort,
 	InsertionSortProps,
 	MergeSortProps,
@@ -42,7 +42,7 @@ const page = () => {
 	const [mode, setMode] = useState<string>("bubble");
 
 	// Data
-	const [bubbleData, setBubbleData] = useState<NodeBubbleSort[]>([]);
+	const [bubbleData, setBubbleData] = useState<BubbleSortProps[]>([]);
 	const [selectionData, setSelectionData] = useState<NodeSelectionSort[]>([]);
 	const [insertionData, setInsertionData] = useState<InsertionSortProps[]>([]);
 	const [mergeData, setMergeData] = useState<MergeSortProps[]>([]);
@@ -60,7 +60,7 @@ const page = () => {
 	useEffect(() => {
 		const fetch = async () => {
 			if (list.length > 0) {
-				const resBubble: NodeBubbleSort[] = await getBubbleSort(list);
+				const resBubble: BubbleSortProps[] = await getBubbleSort(list);
 				setBubbleData(resBubble);
 				const resSelection: NodeSelectionSort[] = await getSelectionSort(list);
 				setSelectionData(resSelection);

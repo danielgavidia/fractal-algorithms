@@ -1,91 +1,70 @@
-import type { NodeBubbleSort } from "../../../types/typesSort";
+import type { BubbleSortProps } from "../../../types/typesSort";
 
-const bubbleSortAlgo = (node: NodeBubbleSort): NodeBubbleSort => {
-	const { list, index, swapCount, iteration, success } = node;
-
-	// Defaults
-	const indexDefined = index === undefined ? 0 : index;
-	const swapCountDefined = swapCount === undefined ? 0 : swapCount;
-	const iterationDefined = iteration === undefined ? 0 : iteration;
-	const successDefined = success === undefined ? false : success;
-
-	// If end of list iteration with zero swaps, return success
-	if (indexDefined === list.length - 1 && swapCountDefined === 0) {
-		return { ...node, success: true };
+const bubbleSortAlgo = ({
+	list,
+	index = 0,
+	swapCount = 0,
+	iteration = 0,
+	callback,
+}: BubbleSortProps) => {
+	const currentConfig = {
+		list: list,
+		index: index,
+		swapCount: swapCount,
+		iteration: iteration,
+	};
+	if (callback) {
+		callback(currentConfig);
 	}
-
-	// Start childnode
-	let childNode: NodeBubbleSort = { ...node };
-
-	// If end of list iteration but swaps > 0, restart and mark failure
-	if (indexDefined === list.length - 1 && swapCountDefined > 0) {
-		childNode = bubbleSortAlgo({
-			list: [...list],
+	let newList = [...list];
+	if (index === list.length - 1 && swapCount === 0) {
+		return;
+	} else if (index === list.length - 1 && swapCount !== 0) {
+		return bubbleSortAlgo({
+			list: newList,
 			index: 0,
 			swapCount: 0,
-			iteration: iterationDefined + 1,
-			success: successDefined,
+			iteration: iteration + 1,
+			callback,
 		});
 	}
 
-	// Perform the swap if necessary
-	const index1 = indexDefined;
-	const index2 = indexDefined + 1;
+	const index1 = index;
+	const index2 = index + 1;
 	const item1 = list[index1];
 	const item2 = list[index2];
-	let newList = [...list];
 
 	if (item1 > item2) {
 		newList[index1] = item2;
 		newList[index2] = item1;
-		childNode = bubbleSortAlgo({
+		return bubbleSortAlgo({
 			list: newList,
-			index: indexDefined + 1,
-			swapCount: swapCountDefined + 1,
-			iteration: iterationDefined,
-			success: successDefined,
+			index: index + 1,
+			swapCount: swapCount + 1,
+			iteration: iteration,
+			callback,
 		});
-	} else if (item1 < item2) {
+	} else if (item1 < item2 || item1 === item2) {
 		newList[index1] = item1;
 		newList[index2] = item2;
-		childNode = bubbleSortAlgo({
+		return bubbleSortAlgo({
 			list: newList,
-			index: indexDefined + 1,
-			swapCount: swapCountDefined,
-			iteration: iterationDefined,
-			success: successDefined,
+			index: index + 1,
+			swapCount: swapCount,
+			iteration: iteration,
+			callback,
 		});
-	}
-
-	return { ...node, childNode };
-};
-
-const bubbleSortDecode = (node: NodeBubbleSort, array: NodeBubbleSort[]): NodeBubbleSort[] => {
-	if (node.childNode === undefined) {
-		let newArr = [...array];
-		newArr.push({
-			list: node.list,
-			index: node.index,
-			swapCount: node.swapCount,
-			iteration: node.iteration,
-			success: node.success,
-		});
-		return newArr;
-	} else {
-		let newArr = [...array];
-		newArr.push({
-			list: node.list,
-			index: node.index,
-			swapCount: node.swapCount,
-			iteration: node.iteration,
-			success: node.success,
-		});
-		return bubbleSortDecode(node.childNode, newArr);
 	}
 };
 
-export const bubbleSort = (node: NodeBubbleSort): NodeBubbleSort[] => {
-	const nodes = bubbleSortAlgo(node);
-	const nodesDecoded = bubbleSortDecode(nodes, []);
-	return nodesDecoded;
+export const bubbleSort = (list: number[]) => {
+	let history: BubbleSortProps[] = [];
+	bubbleSortAlgo({
+		list: list,
+		index: 0,
+		swapCount: 0,
+		iteration: 0,
+		callback: (state) => history.push(state),
+	});
+	return history;
 };

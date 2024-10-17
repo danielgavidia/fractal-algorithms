@@ -41,9 +41,9 @@ app.post("/algos/search/binary", (req, res) => {
 import { bubbleSort } from "../algorithms/sort/bubbleSort";
 
 app.post("/algos/sort/bubble", (req, res) => {
-	const node = req.body;
-	console.log(node);
-	const algoOutput = bubbleSort(node);
+	const { list } = req.body;
+	console.log(list);
+	const algoOutput = bubbleSort(list);
 	res.status(200).json(algoOutput);
 });
 
