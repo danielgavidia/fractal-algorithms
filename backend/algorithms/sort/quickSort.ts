@@ -1,4 +1,4 @@
-import type { QuickSortProps } from "../../../types/typesSort";
+import type { QuickSortProps } from "../../types/typesSort";
 
 const quickSortAlgo = ({ list, level = 0, callback }: QuickSortProps): QuickSortProps => {
 	if (list.length <= 1) {

@@ -1,4 +1,4 @@
-import type { InsertionSortProps } from "../../../types/typesSort";
+import type { InsertionSortProps } from "../../types/typesSort";
 
 const insertionSortAlgo = ({
 	list,

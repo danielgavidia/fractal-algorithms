@@ -1,4 +1,4 @@
-import type { BubbleSortProps } from "../../../types/typesSort";
+import type { BubbleSortProps } from "../../types/typesSort";
 
 const bubbleSortAlgo = ({
 	list,
