@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
+import type { TypeGeneral } from "../../../../types/typesGeneral";
 
-// Main
 interface AnimationHandlerProps {
-	data: any[];
+	data: TypeGeneral[];
 	Component: React.ElementType;
 }
 

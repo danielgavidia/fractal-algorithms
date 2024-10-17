@@ -1,4 +1,4 @@
-import type { NodeSelectionSort } from "../../types/typesSort";
+import type { NodeSelectionSort } from "../../../types/typesSort";
 
 const selectionSortAlgo = (node: NodeSelectionSort): NodeSelectionSort => {
 	const { list, index, indexLowest, iteration, success } = node;

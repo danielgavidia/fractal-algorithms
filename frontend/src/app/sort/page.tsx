@@ -9,7 +9,7 @@ import {
 	InsertionSortProps,
 	MergeSortProps,
 	QuickSortProps,
-} from "../../../../backend/types/typesSort";
+} from "../../../../types/typesSort";
 
 // Utils
 import {

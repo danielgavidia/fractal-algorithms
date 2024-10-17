@@ -5,7 +5,7 @@ import Linear from "../../components/search/Linear";
 import Binary from "../../components/search/Binary";
 
 // Types
-import type { NodeLinearSearch, NodeBinarySearch } from "../../../../backend/types/typesSearch";
+import type { NodeLinearSearch, NodeBinarySearch } from "../../../../types/typesSearch";
 
 // Utils
 import { getLinearSearch, getBinarySearch } from "../../utils/express";

@@ -1,4 +1,4 @@
-import type { MergeSortProps } from "../../types/typesSort";
+import type { MergeSortProps } from "../../../types/typesSort";
 
 const mergeSortAlgo = ({ list, level, callback }: MergeSortProps): MergeSortProps => {
 	if (list.length <= 1) {

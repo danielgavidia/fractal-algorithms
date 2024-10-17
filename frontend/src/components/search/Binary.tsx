@@ -60,8 +60,8 @@ const Binary = ({ node }: BinearProps) => {
 					const barStyle = getBarStyle(i, key, target, L, R, m);
 					const caption = getCaption(i, key, target, L, R, m);
 					return (
-						<li className="flex-1 mx-1 w-10">
-							<div key={key} className={barStyle} style={{ height: `${i * 2}px` }}></div>
+						<li key={key} className="flex-1 mx-1 w-10">
+							<div className={barStyle} style={{ height: `${i * 2}px` }}></div>
 							<span className="block text-center text-xs pt-2">{i}</span>
 							<span className="block text-center text-xs">{caption}</span>
 						</li>
