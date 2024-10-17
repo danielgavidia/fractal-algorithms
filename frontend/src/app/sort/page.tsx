@@ -149,7 +149,9 @@ const Page = () => {
 
 	return (
 		<div className="p-4 w-full max-w-2xl mx-auto">
-			<div className="flex-1 p-2 mb-2 border-b-2 border-gray-200">
+			<p className="w-full text-center text-md font-bold">Sort</p>
+			<p className="w-full text-xs px-2 italic">No need to select a number</p>
+			<div className="flex-1 px-2 mb-2 border-b-2 border-gray-200">
 				<ul className="w-full flex justify-between py-2">
 					{leftBracket}
 					{list.map((item, key) => {
