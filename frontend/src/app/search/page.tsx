@@ -125,7 +125,11 @@ const Page = () => {
 				{modesData.map((m, index) => {
 					if (mode === m.name && m.data !== undefined) {
 						return (
-							<AnimationHandler key={index} data={{ frames: m.data }} Component={m.component} />
+							<AnimationHandler
+								key={index}
+								data={{ frames: m.data, target: target.item }}
+								Component={m.component}
+							/>
 						);
 					} else {
 						return <></>;

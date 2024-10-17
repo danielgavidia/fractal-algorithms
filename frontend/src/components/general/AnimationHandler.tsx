@@ -20,15 +20,15 @@ const AnimationHandler = ({ data, Component }: AnimationHandlerProps) => {
 	const [isPaused, setIsPaused] = useState<boolean>(false);
 	const [action, setCurrentAction] = useState<string>("start");
 
-	function getCurrentFrame() {
-		// WHY ARE WE DOING THIS?
-		// Because the truth about the currentFrame is actually captured on the CLIENT in many cases, NOT the server.
-		// The client often generates initialState, rather than the Server.
-		if (data.initialState && currentIndex == 0 && !isRunning) {
-			return data.initialState;
-		}
-		return data.frames[currentIndex];
-	}
+	// function getCurrentFrame() {
+	// 	// WHY ARE WE DOING THIS?
+	// 	// Because the truth about the currentFrame is actually captured on the CLIENT in many cases, NOT the server.
+	// 	// The client often generates initialState, rather than the Server.
+	// 	if (data.initialState && currentIndex == 0 && !isRunning) {
+	// 		return data.initialState;
+	// 	}
+	// 	return data.frames[currentIndex];
+	// }
 
 	// Speed
 	const [speed, setSpeed] = useState<number>(1000);
@@ -135,7 +135,7 @@ const AnimationHandler = ({ data, Component }: AnimationHandlerProps) => {
 				data.frames.length > 0 &&
 				data.frames[currentIndex] !== undefined ? (
 					<>
-						<Component node={data.frames[currentIndex]} />
+						<Component node={data.frames[currentIndex]} target={data.target} />
 					</>
 				) : (
 					<></>
