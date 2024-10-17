@@ -12,6 +12,10 @@ import { getLinearSearch, getBinarySearch } from "../../utils/express";
 import AnimationHandler from "@/components/general/AnimationHandler";
 import { generateRandomArray } from "@/utils/functions";
 
+// Icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
+
 const leftBracket = "[";
 const rightBracket = "]";
 
@@ -37,7 +41,7 @@ const page = () => {
 		const randomArray = generateRandomArray().sort((a, b) => a - b);
 		setList(randomArray);
 		setTarget({ item: randomArray[0], index: 0 });
-	}, [mode]);
+	}, []);
 
 	// Fetch linear and binary search data
 	useEffect(() => {
@@ -53,6 +57,11 @@ const page = () => {
 	}, [target, list]);
 
 	// Handlers
+	const handleSetList = () => {
+		const randomArray = generateRandomArray().sort((a, b) => a - b);
+		setList(randomArray);
+	};
+
 	const handleSetTarget = (i: { item: number; index: number }) => {
 		setTarget(i);
 	};
@@ -80,7 +89,7 @@ const page = () => {
 								<li key={key}>
 									<button
 										onClick={() => handleSetTarget({ item, index: key })}
-										className={format}
+										className={format + " hover:text-red-500"}
 									>
 										{item}
 									</button>
@@ -89,6 +98,11 @@ const page = () => {
 						})}
 						{rightBracket}
 					</ul>
+					<div className="w-full flex justify-center p-2">
+						<button onClick={() => handleSetList()} className="w-10 hover:text-red-500">
+							<FontAwesomeIcon icon={faArrowsRotate} />
+						</button>
+					</div>
 				</div>
 				<div className="flex flex-col justify-between border-l-2 border-black p-2">
 					<p className="text-xs py-1 italic">Select an algorithm</p>
