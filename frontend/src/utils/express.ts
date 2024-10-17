@@ -9,11 +9,13 @@ import type {
 	QuickSortProps,
 } from "../../../types/typesSort";
 
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+
 // Search: linear search
 export async function getLinearSearch(list: number[], target: number): Promise<NodeLinearSearch[]> {
 	const res = await axios({
 		method: "POST",
-		url: "http://localhost:3001/algos/search/linear",
+		url: `${backendUrl}/algos/search/linear`,
 		data: {
 			list: list,
 			target: target,
@@ -26,7 +28,7 @@ export async function getLinearSearch(list: number[], target: number): Promise<N
 export async function getBinarySearch(list: number[], target: number): Promise<NodeBinarySearch[]> {
 	const res = await axios({
 		method: "POST",
-		url: "http://localhost:3001/algos/search/binary",
+		url: `${backendUrl}/algos/search/binary`,
 		data: {
 			list: list,
 			target: target,
@@ -39,7 +41,7 @@ export async function getBinarySearch(list: number[], target: number): Promise<N
 export async function getBubbleSort(list: number[]): Promise<BubbleSortProps[]> {
 	const res = await axios({
 		method: "POST",
-		url: "http://localhost:3001/algos/sort/bubble",
+		url: `${backendUrl}/algos/sort/bubble`,
 		data: {
 			list: list,
 		},
@@ -51,7 +53,7 @@ export async function getBubbleSort(list: number[]): Promise<BubbleSortProps[]> 
 export async function getSelectionSort(list: number[]): Promise<NodeSelectionSort[]> {
 	const res = await axios({
 		method: "POST",
-		url: "http://localhost:3001/algos/sort/selection",
+		url: `${backendUrl}/algos/sort/selection`,
 		data: {
 			list: list,
 		},
@@ -63,7 +65,7 @@ export async function getSelectionSort(list: number[]): Promise<NodeSelectionSor
 export async function getInsertionSort(list: number[]): Promise<InsertionSortProps[]> {
 	const res = await axios({
 		method: "POST",
-		url: "http://localhost:3001/algos/sort/insertion",
+		url: `${backendUrl}/algos/sort/insertion`,
 		data: {
 			list: list,
 		},
@@ -75,7 +77,7 @@ export async function getInsertionSort(list: number[]): Promise<InsertionSortPro
 export async function getMergeSort(list: number[]): Promise<MergeSortProps[]> {
 	const res = await axios({
 		method: "POST",
-		url: "http://localhost:3001/algos/sort/merge",
+		url: `${backendUrl}/algos/sort/merge`,
 		data: {
 			list: list,
 		},
@@ -87,7 +89,7 @@ export async function getMergeSort(list: number[]): Promise<MergeSortProps[]> {
 export async function getQuickSort(list: number[]): Promise<QuickSortProps[]> {
 	const res = await axios({
 		method: "POST",
-		url: "http://localhost:3001/algos/sort/quick",
+		url: `${backendUrl}/algos/sort/quick`,
 		data: {
 			list: list,
 		},
