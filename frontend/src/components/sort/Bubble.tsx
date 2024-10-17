@@ -1,8 +1,8 @@
 import React from "react";
-import { NodeBubbleSort } from "../../../../types/typesSort";
+import { BubbleSortProps } from "../../../../types/typesSort";
 
 interface BubbleProps {
-	node: NodeBubbleSort;
+	node: BubbleSortProps;
 }
 
 const Bubble = ({ node }: BubbleProps) => {

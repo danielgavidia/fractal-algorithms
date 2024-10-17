@@ -36,7 +36,7 @@ const insertionSortAlgo = ({
 	}
 
 	// Inserting the target into the sorted list in the correct position
-	if (target >= sortedList[index]) {
+	if (index < 0 || target >= sortedList[index]) {
 		const newSortedList = [
 			...sortedList.slice(0, index + 1),
 			target,
@@ -50,25 +50,16 @@ const insertionSortAlgo = ({
 			index: newSortedList.length - 1,
 			callback,
 		});
-	} else if (index === 0) {
-		const newSortedList = [target, ...sortedList];
-		list.shift();
-		return insertionSortAlgo({
-			list: list,
-			sortedList: newSortedList,
-			target: list[0],
-			index: sortedList.length - 1,
-			callback,
-		});
-	} else if (target < sortedList[index]) {
-		return insertionSortAlgo({
-			list: list,
-			sortedList: sortedList,
-			target: target,
-			index: index - 1,
-			callback,
-		});
 	}
+
+	// Continue looking for the correct position by moving left
+	return insertionSortAlgo({
+		list: list,
+		sortedList: sortedList,
+		target: target,
+		index: index - 1,
+		callback,
+	});
 };
 
 export const insertionSort = (list: number[]): InsertionSortProps[] => {

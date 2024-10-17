@@ -4,7 +4,7 @@ import type { NodeLinearSearch, NodeBinarySearch } from "../../../types/typesSea
 import type {
 	InsertionSortProps,
 	MergeSortProps,
-	NodeBubbleSort,
+	BubbleSortProps,
 	NodeSelectionSort,
 	QuickSortProps,
 } from "../../../types/typesSort";
@@ -36,7 +36,7 @@ export async function getBinarySearch(list: number[], target: number): Promise<N
 }
 
 // Sort: bubble sort
-export async function getBubbleSort(list: number[]): Promise<NodeBubbleSort[]> {
+export async function getBubbleSort(list: number[]): Promise<BubbleSortProps[]> {
 	const res = await axios({
 		method: "POST",
 		url: "http://localhost:3001/algos/sort/bubble",

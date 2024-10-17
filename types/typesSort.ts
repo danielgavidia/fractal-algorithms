@@ -1,11 +1,10 @@
 // Bubble sort
-export type NodeBubbleSort = {
+export type BubbleSortProps = {
 	list: number[];
 	index?: number;
 	swapCount?: number;
 	iteration?: number;
-	success?: boolean;
-	childNode?: NodeBubbleSort;
+	callback?: (state: BubbleSortProps) => void;
 };
 
 // Selection sort
