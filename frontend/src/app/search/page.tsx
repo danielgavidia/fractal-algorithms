@@ -47,9 +47,11 @@ const Page = () => {
 	useEffect(() => {
 		const fetch = async () => {
 			if (list.length > 0) {
-				const resLinear: NodeLinearSearch[] = await getLinearSearch(list, target.item);
+				const [resLinear, resBinary] = await Promise.all([
+					getLinearSearch(list, target.item),
+					getBinarySearch(list, target.item),
+				]);
 				setLinearData(resLinear);
-				const resBinary: NodeBinarySearch[] = await getBinarySearch(list, target.item);
 				setBinaryData(resBinary);
 			}
 		};
