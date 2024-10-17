@@ -85,13 +85,66 @@ const Page = () => {
 		setList(randomArray);
 	};
 
-	// modesData
+	// modes data with initial states
 	const modesData = [
-		{ name: "bubble", data: bubbleData, component: Bubble },
-		{ name: "selection", data: selectionData, component: Selection },
-		{ name: "insertion", data: insertionData, component: Insertion },
-		{ name: "merge", data: mergeData, component: Merge },
-		{ name: "quick", data: quickData, component: Quick },
+		{
+			name: "bubble",
+			data: bubbleData,
+			component: Bubble,
+			initialState: {
+				list: list,
+				index: 0,
+				swapCount: 0,
+				iteration: 0,
+			},
+		},
+		{
+			name: "selection",
+			data: selectionData,
+			component: Selection,
+			initialState: {
+				list: list,
+				index: 0,
+				indexLowest: 0,
+				iteration: 0,
+				success: false,
+			},
+		},
+		{
+			name: "insertion",
+			data: insertionData,
+			component: Insertion,
+			initialState: {
+				list: list,
+				sortedList: [],
+				target: list[0],
+				index: 0,
+			},
+		},
+		{
+			name: "merge",
+			data: mergeData,
+			component: Merge,
+			initialState: {
+				list: list,
+				level: 0,
+				left: [],
+				right: [],
+			},
+		},
+		{
+			name: "quick",
+			data: quickData,
+			component: Quick,
+			initialState: {
+				list: list,
+				level: 0,
+				prePivot: list.slice(0, Math.floor((list.length - 1) / 2)),
+				pivot: list[Math.floor((list.length - 1) / 2)],
+				postPivot: list.slice(Math.floor((list.length - 1) / 2) + 1),
+				sorted: [],
+			},
+		},
 	];
 
 	return (
@@ -131,7 +184,11 @@ const Page = () => {
 				{modesData.map((m, index) => {
 					if (mode === m.name && m.data !== undefined) {
 						return (
-							<AnimationHandler key={index} data={{ frames: m.data }} Component={m.component} />
+							<AnimationHandler
+								key={index}
+								data={{ frames: m.data, initialState: m.initialState }}
+								Component={m.component}
+							/>
 						);
 					} else {
 						return <></>;

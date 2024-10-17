@@ -30,7 +30,10 @@ function getNumberFormat(targetIndex: number, key: number): string {
 // Page
 const Page = () => {
 	const [list, setList] = useState<number[]>([]);
-	const [target, setTarget] = useState<{ item: number; index: number }>({ item: 0, index: 0 });
+	const [target, setTarget] = useState<{ item: number; index: number }>({
+		item: list[list.length - 2],
+		index: list.length - 2,
+	});
 	const [mode, setMode] = useState<string>("linear");
 
 	const [linearData, setLinearData] = useState<NodeLinearSearch[]>([]);
@@ -40,7 +43,7 @@ const Page = () => {
 	useEffect(() => {
 		const randomArray = generateRandomArray().sort((a, b) => a - b);
 		setList(randomArray);
-		setTarget({ item: randomArray[0], index: 0 });
+		setTarget({ item: randomArray[randomArray.length - 2], index: randomArray.length - 2 });
 	}, []);
 
 	// Fetch linear and binary search data
@@ -62,6 +65,7 @@ const Page = () => {
 	const handleSetList = () => {
 		const randomArray = generateRandomArray().sort((a, b) => a - b);
 		setList(randomArray);
+		setTarget({ item: randomArray[randomArray.length - 2], index: randomArray.length - 2 });
 	};
 
 	const handleSetTarget = (i: { item: number; index: number }) => {
@@ -72,10 +76,26 @@ const Page = () => {
 		setMode(newMode);
 	};
 
-	// modesData
+	// modes data with initial states
 	const modesData = [
-		{ name: "linear", data: linearData, component: Linear },
-		{ name: "binary", data: binaryData, component: Binary },
+		{
+			name: "linear",
+			data: linearData,
+			component: Linear,
+			initialState: { list: list, index: 0, success: false },
+		},
+		{
+			name: "binary",
+			data: binaryData,
+			component: Binary,
+			initialState: {
+				list: list,
+				L: 0,
+				R: list.length - 1,
+				m: Math.floor((list.length - 1) / 2),
+				success: false,
+			},
+		},
 	];
 
 	return (
@@ -127,7 +147,7 @@ const Page = () => {
 						return (
 							<AnimationHandler
 								key={index}
-								data={{ frames: m.data, target: target.item }}
+								data={{ frames: m.data, target: target.item, initialState: m.initialState }}
 								Component={m.component}
 							/>
 						);
