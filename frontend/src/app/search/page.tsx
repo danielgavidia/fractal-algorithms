@@ -34,10 +34,10 @@ const page = () => {
 
 	// Generate random array
 	useEffect(() => {
-		const randomArray = generateRandomArray();
-		setList(randomArray.toSorted());
+		const randomArray = generateRandomArray().sort((a, b) => a - b);
+		setList(randomArray);
 		setTarget({ item: randomArray[0], index: 0 });
-	}, []);
+	}, [mode]);
 
 	// Fetch linear and binary search data
 	useEffect(() => {

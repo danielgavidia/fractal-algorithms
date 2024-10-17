@@ -17,15 +17,17 @@ const Binary = ({ node }: BinearProps) => {
 		m: number
 	): string {
 		if (item === target && key === m) {
-			return "border-2 border-white bg-white";
-		} else if (key === m) {
-			return "border-2 border-white bg-blue-900";
-		} else if (key === L || key === R) {
-			return "border-2 border-white bg-red-900";
+			return "border-[0.5px] border-black bg-green-500";
 		} else if (item === target) {
-			return "border-2 border-white bg-green-900";
+			return "border-[0.5px] border-black bg-red-500";
+		} else if (key === m) {
+			return "border-[0.5px] bg-blue-500";
+		} else if (key === L) {
+			return "border-[0.5px] border-black bg-black";
+		} else if (key === R) {
+			return "border-[0.5px] border-black bg-black";
 		} else {
-			return "border-2 border-white";
+			return "border-[0.5px] border-black";
 		}
 	}
 
@@ -38,7 +40,7 @@ const Binary = ({ node }: BinearProps) => {
 		m: number
 	): string {
 		if (item === target && key === m) {
-			return "Target + m";
+			return "Target & m";
 		} else if (key === m) {
 			return "m";
 		} else if (key === L) {
@@ -56,14 +58,14 @@ const Binary = ({ node }: BinearProps) => {
 		<ul className={"flex justify-between items-end"}>
 			{list.map((i, key) => {
 				return (
-					<li className="flex-1 mx-1">
+					<li className="flex-1 mx-1 w-10">
 						<div
 							key={key}
 							className={getBarStyle(i, key, target, L, R, m)}
 							style={{ height: `${i * 5}px` }}
 						></div>
 						<span className="block text-center">{i}</span>
-						<span className="block text-center">
+						<span className="block text-center text-xs">
 							{getBarTag(i, key, target, L, R, m)}
 						</span>
 					</li>

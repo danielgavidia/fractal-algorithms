@@ -9,6 +9,9 @@ const Navbar = () => {
 					<Link href="/">Fractal Algorithms</Link>
 				</li>
 				<li className="p-4 w-20 flex justify-center">
+					<Link href="/">Home</Link>
+				</li>
+				<li className="p-4 w-20 flex justify-center">
 					<Link href="/search">Search</Link>
 				</li>
 				<li className="p-4 w-20 flex justify-center">

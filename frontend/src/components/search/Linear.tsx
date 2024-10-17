@@ -24,7 +24,7 @@ const Linear = ({ node }: LinearProps) => {
 			{list.map((i, key) => {
 				const barStyle = getBarStyle(i, key, index, target);
 				return (
-					<li key={key} className={`flex-1 mx-1 w-10 `}>
+					<li key={key} className="flex-1 mx-1 w-10">
 						<div
 							className={`border-[0.5px] border-black ${barStyle}`}
 							style={{ height: `${i * 5}px` }}
