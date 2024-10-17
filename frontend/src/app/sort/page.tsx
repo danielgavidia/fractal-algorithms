@@ -54,21 +54,21 @@ const Page = () => {
 		setList(randomArray);
 	}, []);
 
-	// console.log(list);
-
 	// Fetch data
 	useEffect(() => {
 		const fetch = async () => {
 			if (list.length > 0) {
-				const resBubble: BubbleSortProps[] = await getBubbleSort(list);
+				const [resBubble, resSelection, resInsertion, resMerge, resQuick] = await Promise.all([
+					getBubbleSort(list),
+					getSelectionSort(list),
+					getInsertionSort(list),
+					getMergeSort(list),
+					getQuickSort(list),
+				]);
 				setBubbleData(resBubble);
-				const resSelection: NodeSelectionSort[] = await getSelectionSort(list);
 				setSelectionData(resSelection);
-				const resInsertion: InsertionSortProps[] = await getInsertionSort(list);
 				setInsertionData(resInsertion);
-				const resMerge: MergeSortProps[] = await getMergeSort(list);
 				setMergeData(resMerge);
-				const resQuick: QuickSortProps[] = await getQuickSort(list);
 				setQuickData(resQuick);
 			}
 		};
