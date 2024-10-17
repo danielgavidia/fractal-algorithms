@@ -48,9 +48,9 @@ const Selection = ({ node }: SelectionProps) => {
 					const caption = getCaption(key, index, indexLowest);
 					return (
 						<li key={key} className="flex-1 mx-1">
-							<div style={{ height: `${i * 3}px` }} className={barStyle}></div>
-							<div className="text-center text-sm">{i}</div>
-							<p className="text-center text-sm">{caption}</p>
+							<div style={{ height: `${i * 2}px` }} className={barStyle}></div>
+							<div className="text-center text-xs pt-2">{i}</div>
+							<p className="text-center text-xs">{caption}</p>
 						</li>
 					);
 				})}

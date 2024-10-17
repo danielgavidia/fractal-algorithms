@@ -37,33 +37,39 @@ const Insertion = ({ node }: InsertionProps) => {
 	}
 
 	return (
-		<div className="w-full h-full flex flex-col">
-			<div className="w-full border-b-2 border-gray-200 mb-2 pb-2">
-				<p className="h-12 text-xs italic">Sorted List</p>
-				<ul className="flex justify-between items-end w-full h-40">
+		<div className="w-full h-full flex flex-col space-y-2">
+			{/* Sorted list */}
+			<div className="w-full h-full">
+				<p className="h-8 text-xs italic">Sorted List</p>
+				<ul className="flex justify-between items-end w-full h-24">
 					{sortedList &&
 						sortedList.map((i, key) => {
 							return (
 								<li key={key} className="flex-1 mx-1 items-center">
-									<div style={{ height: `${i * 1}px` }} className="bg-black"></div>
-									<div className="text-center text-sm">{i}</div>
+									<div style={{ height: `${i * 0.5}px` }} className="bg-black"></div>
+									<div className="text-center text-xs pt-2">{i}</div>
 								</li>
 							);
 						})}
 				</ul>
 			</div>
+
+			{/* Divider */}
+			<div className="w-full h-2 border-t-2 py-2 border-gray-200"></div>
+
+			{/* Original list */}
 			<div className="w-full">
-				<p className="h-12 text-xs italic">Original List</p>
-				<ul className="flex justify-between items-end w-full h-40">
+				<p className="h-8 text-xs italic">Original List</p>
+				<ul className="flex justify-between items-end w-full h-24">
 					{list.map((i, key) => {
 						const barStyle = getBarStyle(key, i, target, index);
 						const caption = getCaption(key, i, target, index);
 
 						return (
 							<li key={key} className="flex-1 mx-1 items-center">
-								<div style={{ height: `${i * 1}px` }} className={barStyle}></div>
-								<div className="text-center text-sm">{i}</div>
-								<div className="text-center text-sm">{caption}</div>
+								<div style={{ height: `${i * 0.5}px` }} className={barStyle}></div>
+								<div className="text-center text-xs pt-2">{i}</div>
+								<div className="text-center text-xs">{caption}</div>
 							</li>
 						);
 					})}

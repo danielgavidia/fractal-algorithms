@@ -39,7 +39,7 @@ const Linear = ({ node }: LinearProps) => {
 					const caption = getCaption(i, key, index, target);
 					return (
 						<li key={key} className="flex-1 mx-1 w-10">
-							<div className={barStyle} style={{ height: `${i * 3}px` }}></div>
+							<div className={barStyle} style={{ height: `${i * 2}px` }}></div>
 							<span className="block text-center">{i}</span>
 							<span className="block text-center text-sm">{caption}</span>
 						</li>
