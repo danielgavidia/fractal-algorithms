@@ -14,13 +14,19 @@ const AnimationHandler = ({ data, Component }: AnimationHandlerProps) => {
 	const [isPaused, setIsPaused] = useState<boolean>(false);
 	const [action, setCurrentAction] = useState<string>("start");
 
+	// Speed
+	const [speed, setSpeed] = useState<number>(1000);
+	const interval = 200;
+	const lowerBound = 100;
+	const upperBound = 2000;
+
 	useEffect(() => {
 		let interval: NodeJS.Timeout | null = null;
 
 		if (isRunning && !isPaused && currentIndex < data.length - 1) {
 			interval = setInterval(() => {
 				setCurrentIndex((prev) => (prev < data.length - 1 ? prev + 1 : 0));
-			}, 500);
+			}, speed);
 		}
 
 		if (currentIndex === data.length - 1) {
@@ -33,7 +39,7 @@ const AnimationHandler = ({ data, Component }: AnimationHandlerProps) => {
 				clearInterval(interval);
 			}
 		};
-	}, [isRunning, isPaused, currentIndex, data.length]);
+	}, [isRunning, isPaused, currentIndex, data.length, speed]);
 
 	// Animation handlers
 	const startAnimation = () => {
@@ -54,6 +60,14 @@ const AnimationHandler = ({ data, Component }: AnimationHandlerProps) => {
 		setCurrentAction("restart");
 	};
 
+	const handleSetSpeed = (increase: boolean) => {
+		if (increase && speed + interval < upperBound) {
+			setSpeed((prevSpeed) => prevSpeed + interval);
+		} else if (!increase && speed - interval > lowerBound) {
+			setSpeed((prevSpeed) => prevSpeed - interval);
+		}
+	};
+
 	// Modes
 	const actions = [
 		{ action: "start", title: "Start", handler: startAnimation },
@@ -70,15 +84,28 @@ const AnimationHandler = ({ data, Component }: AnimationHandlerProps) => {
 							? "bg-red-500 text-white border-[0.5px] border-red-500"
 							: "border-[0.5px] border-black hover:bg-black hover:text-white";
 					return (
-						<button
-							key={key}
-							onClick={a.handler}
-							className={format + " px-4 py-2 w-24"}
-						>
+						<button key={key} onClick={a.handler} className={format + " px-4 py-2 w-24"}>
 							{a.title}
 						</button>
 					);
 				})}
+			</div>
+			<p className="w-80 text-xs text-center">{speed} ms</p>
+			<div className="flex justify-between items-center w-80">
+				<button onClick={() => handleSetSpeed(false)} className="p-2 hover:text-red-500">
+					-
+				</button>
+				<input
+					type="range"
+					min={lowerBound}
+					max={upperBound}
+					value={speed}
+					onChange={(e) => setSpeed(Number(e.target.value))}
+					className="p-2 accent-red-500 cursor-pointer appearance-none border-[0.5px] border-black h-6 w-60"
+				/>
+				<button onClick={() => handleSetSpeed(true)} className="p-2 hover:text-red-500">
+					+
+				</button>
 			</div>
 			{data !== undefined && data.length > 0 && data[currentIndex] !== undefined ? (
 				<>

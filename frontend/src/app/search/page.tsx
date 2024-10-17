@@ -109,11 +109,7 @@ const page = () => {
 					{modesData.map((m, index) => {
 						const buttonStyle = m.name === mode ? "text-red-500" : "";
 						return (
-							<button
-								key={index}
-								onClick={() => handleSetMode(m.name)}
-								className={buttonStyle}
-							>
+							<button key={index} onClick={() => handleSetMode(m.name)} className={buttonStyle}>
 								{m.name}
 							</button>
 						);
@@ -123,9 +119,7 @@ const page = () => {
 			<div>
 				{modesData.map((m, index) => {
 					if (mode === m.name && m.data !== undefined) {
-						return (
-							<AnimationHandler key={index} data={m.data} Component={m.component} />
-						);
+						return <AnimationHandler key={index} data={m.data} Component={m.component} />;
 					} else {
 						return <></>;
 					}
