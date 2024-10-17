@@ -11,7 +11,7 @@ const Quick = ({ node }: QuickProps) => {
 	return (
 		<div className="w-full h-full flex flex-col">
 			<div className="w-full border-b-2 border-gray-200 mb-2 pb-2">
-				<p className="h-12 text-sm italic">List, Level: {level}</p>
+				<p className="h-12 text-xs italic">List, Level: {level}</p>
 				<ul className="flex justify-between w-full items-end h-40">
 					{list.map((i, key) => {
 						return (
@@ -24,7 +24,7 @@ const Quick = ({ node }: QuickProps) => {
 				</ul>
 			</div>
 			<div className="w-full">
-				<p className="h-12 text-sm italic">Sorted List: Pre-Pivot + Pivot + Post-Pivot</p>
+				<p className="h-12 text-xs italic">Sorted List: Pre-Pivot + Pivot + Post-Pivot</p>
 
 				{/* Pre-pivot */}
 				<ul className="flex justify-between w-full items-end h-40">
