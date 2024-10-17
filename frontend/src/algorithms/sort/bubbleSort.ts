@@ -1,4 +1,4 @@
-import type { BubbleSortProps } from "../../../types/typesSort";
+import type { BubbleSortProps } from "../../../../types/typesSort";
 
 const bubbleSortAlgo = ({
 	list,
@@ -57,7 +57,7 @@ const bubbleSortAlgo = ({
 	}
 };
 
-export const bubbleSort = (list: number[]) => {
+export const getBubbleSort = (list: number[]) => {
 	let history: BubbleSortProps[] = [];
 	bubbleSortAlgo({
 		list: list,

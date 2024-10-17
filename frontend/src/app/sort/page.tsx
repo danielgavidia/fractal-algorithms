@@ -11,14 +11,14 @@ import {
 	QuickSortProps,
 } from "../../../../types/typesSort";
 
+// Algos
+import { getBubbleSort } from "@/algorithms/sort/bubbleSort";
+import { getSelectionSort } from "@/algorithms/sort/selectionSort";
+import { getInsertionSort } from "@/algorithms/sort/insertionSort";
+import { getMergeSort } from "@/algorithms/sort/mergeSort";
+import { getQuickSort } from "@/algorithms/sort/quickSort";
+
 // Utils
-import {
-	getBubbleSort,
-	getSelectionSort,
-	getInsertionSort,
-	getMergeSort,
-	getQuickSort,
-} from "@/utils/express";
 import { generateRandomArray } from "@/utils/functions";
 
 // Components

@@ -1,4 +1,4 @@
-import type { InsertionSortProps } from "../../../types/typesSort";
+import type { InsertionSortProps } from "../../../../types/typesSort";
 
 const insertionSortAlgo = ({
 	list,
@@ -62,7 +62,7 @@ const insertionSortAlgo = ({
 	});
 };
 
-export const insertionSort = (list: number[]): InsertionSortProps[] => {
+export const getInsertionSort = (list: number[]): InsertionSortProps[] => {
 	let history: InsertionSortProps[] = [];
 	insertionSortAlgo({
 		list: [...list],

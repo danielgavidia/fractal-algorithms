@@ -6,6 +6,8 @@ type Node = {
 	childNode?: Node;
 };
 
+import type { NodeLinearSearch } from "../../../../types/typesSearch";
+
 const linearSearchAlgo = (node: Node) => {
 	const { list, target, index, success } = node;
 
@@ -61,8 +63,19 @@ const linearSearchDecode = (node: Node, array: Node[]): Node[] => {
 	}
 };
 
-export const getLinearSearch = ({ list, target }: { list: number[]; target: number }): Node[] => {
+export const getLinearSearch = ({
+	list,
+	target,
+}: {
+	list: number[];
+	target: number;
+}): NodeLinearSearch[] => {
 	const nodes = linearSearchAlgo({ list, target });
 	const nodesDecoded = linearSearchDecode(nodes, []);
-	return nodesDecoded;
+	const nodesFinal = nodesDecoded.map((node) => ({
+		list: node.list,
+		target: node.target,
+		index: node.index ? node.index : 0,
+	}));
+	return nodesFinal;
 };

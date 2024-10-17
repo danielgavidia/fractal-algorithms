@@ -2,9 +2,7 @@
 export type NodeLinearSearch = {
 	list: number[];
 	target: number;
-	index?: number;
-	success?: boolean;
-	childNode?: NodeLinearSearch;
+	index: number;
 };
 
 // Binary search
@@ -14,6 +12,4 @@ export type NodeBinarySearch = {
 	L: number; // The left bound
 	R: number; // The right bound
 	m: number;
-	// success?: boolean;
-	// childNode?: NodeBinarySearch; // Child node
 };

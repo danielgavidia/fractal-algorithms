@@ -54,8 +54,8 @@ const Page = () => {
 		const fetch = async () => {
 			if (list.length > 0) {
 				const [resLinear, resBinary] = await Promise.all([
-					getLinearSearch(list, target.item),
-					getBinarySearch(list, target.item),
+					getLinearSearch({ list, target: target.item }),
+					getBinarySearch({ list, target: target.item }),
 				]);
 				setLinearData(resLinear);
 				setBinaryData(resBinary);
@@ -85,7 +85,7 @@ const Page = () => {
 			name: "linear",
 			data: linearData,
 			component: Linear,
-			initialState: { list: list, index: 0, success: false },
+			initialState: { list: list, index: 0 },
 		},
 		{
 			name: "binary",
@@ -96,7 +96,6 @@ const Page = () => {
 				L: 0,
 				R: list.length - 1,
 				m: Math.floor((list.length - 1) / 2),
-				success: false,
 			},
 		},
 	];

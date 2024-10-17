@@ -1,4 +1,4 @@
-import type { MergeSortProps } from "../../../types/typesSort";
+import type { MergeSortProps } from "../../../../types/typesSort";
 
 const mergeSortAlgo = ({ list, level, callback }: MergeSortProps): MergeSortProps => {
 	if (list.length <= 1) {
@@ -54,7 +54,7 @@ const merge = (left: number[], right: number[]): number[] => {
 	return merged.concat(left).concat(right);
 };
 
-export const mergeSort = (list: number[]): MergeSortProps[] => {
+export const getMergeSort = (list: number[]): MergeSortProps[] => {
 	let history: MergeSortProps[] = [];
 	mergeSortAlgo({
 		list: list,
@@ -64,6 +64,3 @@ export const mergeSort = (list: number[]): MergeSortProps[] => {
 
 	return history;
 };
-
-const exampleList = [38, 27, 43, 3, 9, 82, 10];
-console.log(mergeSort(exampleList));

@@ -1,4 +1,4 @@
-import type { QuickSortProps } from "../../../types/typesSort";
+import type { QuickSortProps } from "../../../../types/typesSort";
 
 const quickSortAlgo = ({ list, level = 0, callback }: QuickSortProps): QuickSortProps => {
 	if (list.length <= 1) {
@@ -46,7 +46,7 @@ const quickSortAlgo = ({ list, level = 0, callback }: QuickSortProps): QuickSort
 	return { list: [...prePivot.list, pivot, ...postPivot.list], level: level };
 };
 
-export const quickSort = (list: number[]) => {
+export const getQuickSort = (list: number[]) => {
 	let history: QuickSortProps[] = [];
 	quickSortAlgo({
 		list: list,

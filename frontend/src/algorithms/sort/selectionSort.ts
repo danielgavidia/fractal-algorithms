@@ -1,4 +1,4 @@
-import type { NodeSelectionSort } from "../../../types/typesSort";
+import type { NodeSelectionSort } from "../../../../types/typesSort";
 
 const selectionSortAlgo = (node: NodeSelectionSort): NodeSelectionSort => {
 	const { list, index, indexLowest, iteration, success } = node;
@@ -98,8 +98,8 @@ const selectionSortDecode = (
 	}
 };
 
-export const selectionSort = (node: NodeSelectionSort): NodeSelectionSort[] => {
-	const nodes = selectionSortAlgo(node);
+export const getSelectionSort = (list: number[]): NodeSelectionSort[] => {
+	const nodes = selectionSortAlgo({ list: list });
 	const nodesDecoded = selectionSortDecode(nodes, []);
 	return nodesDecoded;
 };
