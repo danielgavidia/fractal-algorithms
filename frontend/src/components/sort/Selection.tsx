@@ -14,13 +14,13 @@ const Selection = ({ node }: SelectionProps) => {
 		iteration: number | undefined
 	): string {
 		if (key === index) {
-			return "border-2 border-white bg-red-900";
+			return "border-[0.5px] border-black bg-red-500";
 		} else if (key === indexLowest) {
-			return "border-2 border-white bg-green-900";
+			return "border-[0.5px] border-black bg-green-500";
 		} else if (iteration !== undefined && key < iteration) {
-			return "border-2 border-white bg-gray-700";
+			return "border-[0.5px] border-black bg-black";
 		} else {
-			return "border-2 border-white";
+			return "border-[0.5px] border-black";
 		}
 	}
 
@@ -38,19 +38,19 @@ const Selection = ({ node }: SelectionProps) => {
 	}
 
 	return (
-		<div className="w-full">
-			<div className="w-40">
-				<p>iteration: {iteration}</p>
+		<div className="w-full h-full">
+			<div className="w-full pb-4 h-12">
+				<p className="text-xs italic">Iteration: {iteration}</p>
 			</div>
-			<ul className="flex justify-between w-full items-end">
+			<ul className="flex justify-between w-full items-end h-full">
 				{list.map((i, key) => {
 					const barStyle = getBarStyle(key, index, indexLowest, iteration);
 					const caption = getCaption(key, index, indexLowest);
 					return (
 						<li key={key} className="flex-1 mx-1">
-							<div style={{ height: `${i * 5}px` }} className={barStyle}></div>
-							<div className="text-center">{i}</div>
-							<p className="text-center">{caption}</p>
+							<div style={{ height: `${i * 3}px` }} className={barStyle}></div>
+							<div className="text-center text-sm">{i}</div>
+							<p className="text-center text-sm">{caption}</p>
 						</li>
 					);
 				})}

@@ -30,7 +30,7 @@ const Bubble = ({ node }: BubbleProps) => {
 
 	return (
 		<div className={"w-full h-full"}>
-			<div className="w-full pb-4">
+			<div className="w-full pb-4 h-12">
 				<p className="text-xs italic">Swap Count: {swapCount}</p>
 				<p className="text-xs italic">Iteration: {iteration}</p>
 			</div>
@@ -42,8 +42,8 @@ const Bubble = ({ node }: BubbleProps) => {
 					return (
 						<li key={key} className="flex-1 mx-1">
 							<div style={{ height: `${i * 3}px` }} className={barStyle}></div>
-							<div className="text-center">{i}</div>
-							<div className="text-center">{caption}</div>
+							<div className="text-center text-sm">{i}</div>
+							<div className="text-center text-sm">{caption}</div>
 						</li>
 					);
 				})}
