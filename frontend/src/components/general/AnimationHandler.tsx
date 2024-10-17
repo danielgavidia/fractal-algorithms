@@ -20,6 +20,7 @@ const AnimationHandler = ({ data, Component }: AnimationHandlerProps) => {
 	const lowerBound = 100;
 	const upperBound = 2000;
 
+	// Animation
 	useEffect(() => {
 		let interval: NodeJS.Timeout | null = null;
 
@@ -40,6 +41,11 @@ const AnimationHandler = ({ data, Component }: AnimationHandlerProps) => {
 			}
 		};
 	}, [isRunning, isPaused, currentIndex, data.length, speed]);
+
+	// Restart animation when data/Component changes
+	useEffect(() => {
+		resetAnimation();
+	}, [data, Component]);
 
 	// Animation handlers
 	const startAnimation = () => {

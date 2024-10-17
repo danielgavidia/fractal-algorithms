@@ -17,9 +17,13 @@ const insertionSortAlgo = ({
 		callback(startingConfig);
 	}
 
+	// Return if list length equals 0
 	if (list.length === 0) {
-		return `Completed, sorted list: ${sortedList}`;
-	} else if (sortedList.length === 0) {
+		return;
+	}
+
+	// If sorted list is empty, insert the first element
+	if (sortedList.length === 0) {
 		const newSortedList = [list[0]];
 		list.shift();
 		return insertionSortAlgo({
@@ -29,7 +33,10 @@ const insertionSortAlgo = ({
 			index: newSortedList.length - 1,
 			callback,
 		});
-	} else if (target > sortedList[index]) {
+	}
+
+	// Inserting the target into the sorted list in the correct position
+	if (target >= sortedList[index]) {
 		const newSortedList = [
 			...sortedList.slice(0, index + 1),
 			target,
@@ -43,12 +50,12 @@ const insertionSortAlgo = ({
 			index: newSortedList.length - 1,
 			callback,
 		});
-	} else if (target < sortedList[index] && index === 0) {
-		sortedList.unshift(target);
+	} else if (index === 0) {
+		const newSortedList = [target, ...sortedList];
 		list.shift();
 		return insertionSortAlgo({
 			list: list,
-			sortedList: sortedList,
+			sortedList: newSortedList,
 			target: list[0],
 			index: sortedList.length - 1,
 			callback,
@@ -67,7 +74,7 @@ const insertionSortAlgo = ({
 export const insertionSort = (list: number[]): InsertionSortProps[] => {
 	let history: InsertionSortProps[] = [];
 	insertionSortAlgo({
-		list: list,
+		list: [...list],
 		callback: (state) => history.push(state),
 	});
 
