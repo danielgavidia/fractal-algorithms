@@ -76,7 +76,7 @@ const AnimationHandler = ({ data, Component }: AnimationHandlerProps) => {
 	];
 
 	return (
-		<div className="flex flex-col w-full items-center">
+		<div className="flex flex-col w-full items-center pt-2">
 			<div className="flex space-x-4 mb-4 justify-center w-full">
 				{actions.map((a, key) => {
 					const format =
@@ -84,14 +84,14 @@ const AnimationHandler = ({ data, Component }: AnimationHandlerProps) => {
 							? "bg-red-500 text-white border-[0.5px] border-red-500"
 							: "border-[0.5px] border-black hover:bg-black hover:text-white";
 					return (
-						<button key={key} onClick={a.handler} className={format + " px-4 py-2 w-24"}>
+						<button key={key} onClick={a.handler} className={format + " px-4 py-2 w-24 text-sm"}>
 							{a.title}
 						</button>
 					);
 				})}
 			</div>
 			<p className="w-80 text-xs text-center">{speed} ms</p>
-			<div className="flex space-x-4 justify-center items-center w-full border-b-2 border-gray-200 p-2">
+			<div className="flex space-x-4 justify-center items-center w-full border-b-2 border-gray-200 pb-2">
 				<button onClick={() => handleSetSpeed(false)} className="p-2 hover:text-red-500">
 					-
 				</button>
