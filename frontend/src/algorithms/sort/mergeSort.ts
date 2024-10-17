@@ -9,8 +9,8 @@ const mergeSortAlgo = ({ list, level, callback }: MergeSortProps): MergeSortProp
 	}
 
 	// Callback #1: record current split
-	let left: number[] = [];
-	let right: number[] = [];
+	const left: number[] = [];
+	const right: number[] = [];
 
 	for (let i = 0; i < list.length; i++) {
 		if (i % 2 === 0) {
@@ -41,7 +41,7 @@ const mergeSortAlgo = ({ list, level, callback }: MergeSortProps): MergeSortProp
 };
 
 const merge = (left: number[], right: number[]): number[] => {
-	let merged: number[] = [];
+	const merged: number[] = [];
 
 	while (left.length !== 0 && right.length !== 0) {
 		if (left[0] <= right[0]) {
@@ -55,7 +55,7 @@ const merge = (left: number[], right: number[]): number[] => {
 };
 
 export const getMergeSort = (list: number[]): MergeSortProps[] => {
-	let history: MergeSortProps[] = [];
+	const history: MergeSortProps[] = [];
 	mergeSortAlgo({
 		list: list,
 		level: 0,

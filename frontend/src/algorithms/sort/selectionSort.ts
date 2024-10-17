@@ -76,7 +76,7 @@ const selectionSortDecode = (
 	array: NodeSelectionSort[]
 ): NodeSelectionSort[] => {
 	if (node.childNode === undefined) {
-		let newArr = [...array];
+		const newArr = [...array];
 		newArr.push({
 			list: node.list,
 			index: node.index,
@@ -86,7 +86,7 @@ const selectionSortDecode = (
 		});
 		return newArr;
 	} else {
-		let newArr = [...array];
+		const newArr = [...array];
 		newArr.push({
 			list: node.list,
 			index: node.index,

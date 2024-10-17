@@ -54,7 +54,7 @@ const AnimationHandler = ({ data, Component }: AnimationHandlerProps) => {
 				clearInterval(interval);
 			}
 		};
-	}, [isRunning, isPaused, currentIndex, speed]);
+	}, [isRunning, isPaused, currentIndex, speed, data.frames]);
 
 	// Restart animation when data/Component changes
 	useEffect(() => {

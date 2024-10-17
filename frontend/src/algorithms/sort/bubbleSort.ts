@@ -16,7 +16,7 @@ const bubbleSortAlgo = ({
 	if (callback) {
 		callback(currentConfig);
 	}
-	let newList = [...list];
+	const newList = [...list];
 	if (index === list.length - 1 && swapCount === 0) {
 		return;
 	} else if (index === list.length - 1 && swapCount !== 0) {
@@ -58,7 +58,7 @@ const bubbleSortAlgo = ({
 };
 
 export const getBubbleSort = (list: number[]) => {
-	let history: BubbleSortProps[] = [];
+	const history: BubbleSortProps[] = [];
 	bubbleSortAlgo({
 		list: list,
 		index: 0,
