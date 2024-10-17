@@ -38,7 +38,7 @@ const rightBracket = "]";
 
 // Page
 const Page = () => {
-	const [list, setList] = useState<number[]>([]);
+	const [list, setList] = useState<number[]>([]); // you ALREADY have this list, you can just put this into the initial numbers.
 	const [mode, setMode] = useState<string>("bubble");
 
 	// Data
@@ -130,7 +130,9 @@ const Page = () => {
 			<div>
 				{modesData.map((m, index) => {
 					if (mode === m.name && m.data !== undefined) {
-						return <AnimationHandler key={index} data={m.data} Component={m.component} />;
+						return (
+							<AnimationHandler key={index} data={{ frames: m.data }} Component={m.component} />
+						);
 					} else {
 						return <></>;
 					}

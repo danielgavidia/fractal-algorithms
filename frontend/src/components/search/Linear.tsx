@@ -8,7 +8,7 @@ interface LinearProps {
 const Linear = ({ node }: LinearProps) => {
 	const { list, target, index } = node;
 
-	function getBarStyle(item: number, key: number, index: number, target: number): string {
+	function getBarStyle(item: number, key: number, index: number, serverTarget: number): string {
 		if (key === index && item === target) {
 			return "bg-green-500";
 		} else if (key === index) {

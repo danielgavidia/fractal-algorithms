@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
 import type { TypeGeneral } from "../../../../types/typesGeneral";
 
+interface AnimationHandlerData {
+	frames: TypeGeneral[]; // where do the frames come from? THE SERVER.
+	target?: number; // target is used for search animations.
+	initialState?: TypeGeneral; // this comes from the FRONTEND actually.
+}
+
 interface AnimationHandlerProps {
-	data: TypeGeneral[];
+	data: AnimationHandlerData;
 	Component: React.ElementType;
 }
 
@@ -14,6 +20,16 @@ const AnimationHandler = ({ data, Component }: AnimationHandlerProps) => {
 	const [isPaused, setIsPaused] = useState<boolean>(false);
 	const [action, setCurrentAction] = useState<string>("start");
 
+	function getCurrentFrame() {
+		// WHY ARE WE DOING THIS?
+		// Because the truth about the currentFrame is actually captured on the CLIENT in many cases, NOT the server.
+		// The client often generates initialState, rather than the Server.
+		if (data.initialState && currentIndex == 0 && !isRunning) {
+			return data.initialState;
+		}
+		return data.frames[currentIndex];
+	}
+
 	// Speed
 	const [speed, setSpeed] = useState<number>(1000);
 	const interval = 200;
@@ -22,15 +38,16 @@ const AnimationHandler = ({ data, Component }: AnimationHandlerProps) => {
 
 	// Animation
 	useEffect(() => {
+		if (!data.frames) return;
 		let interval: NodeJS.Timeout | null = null;
 
-		if (isRunning && !isPaused && currentIndex < data.length - 1) {
+		if (isRunning && !isPaused && currentIndex < data.frames.length - 1) {
 			interval = setInterval(() => {
-				setCurrentIndex((prev) => (prev < data.length - 1 ? prev + 1 : 0));
+				setCurrentIndex((prev) => (prev < data.frames.length - 1 ? prev + 1 : 0));
 			}, speed);
 		}
 
-		if (currentIndex === data.length - 1) {
+		if (currentIndex === data.frames.length - 1) {
 			setIsRunning(false);
 		}
 
@@ -40,7 +57,7 @@ const AnimationHandler = ({ data, Component }: AnimationHandlerProps) => {
 				clearInterval(interval);
 			}
 		};
-	}, [isRunning, isPaused, currentIndex, data.length, speed]);
+	}, [isRunning, isPaused, currentIndex, speed]);
 
 	// Restart animation when data/Component changes
 	useEffect(() => {
@@ -114,9 +131,11 @@ const AnimationHandler = ({ data, Component }: AnimationHandlerProps) => {
 				</button>
 			</div>
 			<div className="py-4 h-72 w-full">
-				{data !== undefined && data.length > 0 && data[currentIndex] !== undefined ? (
+				{data.frames !== undefined &&
+				data.frames.length > 0 &&
+				data.frames[currentIndex] !== undefined ? (
 					<>
-						<Component node={data[currentIndex]} />
+						<Component node={data.frames[currentIndex]} />
 					</>
 				) : (
 					<></>
