@@ -1,12 +1,19 @@
+"use client";
+
 import React from "react";
 import { NodeLinearSearch } from "../../../../types/typesSearch";
 
 interface LinearProps {
 	node: NodeLinearSearch;
+	target: number;
 }
 
-const Linear = ({ node }: LinearProps) => {
-	const { list, target, index } = node;
+const Linear = ({ node, target }: LinearProps) => {
+	const { list, index } = node;
+
+	if (index === undefined) {
+		return;
+	}
 
 	function getBarStyle(item: number, key: number, index: number, target: number): string {
 		if (key === index && item === target) {

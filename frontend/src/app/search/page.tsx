@@ -7,8 +7,11 @@ import Binary from "../../components/search/Binary";
 // Types
 import type { NodeLinearSearch, NodeBinarySearch } from "../../../../types/typesSearch";
 
+// Algos
+import { getLinearSearch } from "@/algorithms/search/linearSearch";
+import { getBinarySearch } from "@/algorithms/search/binarySearch";
+
 // Utils
-import { getLinearSearch, getBinarySearch } from "../../utils/express";
 import AnimationHandler from "@/components/general/AnimationHandler";
 import { generateRandomArray } from "@/utils/functions";
 
@@ -30,7 +33,10 @@ function getNumberFormat(targetIndex: number, key: number): string {
 // Page
 const Page = () => {
 	const [list, setList] = useState<number[]>([]);
-	const [target, setTarget] = useState<{ item: number; index: number }>({ item: 0, index: 0 });
+	const [target, setTarget] = useState<{ item: number; index: number }>({
+		item: list[list.length - 2],
+		index: list.length - 2,
+	});
 	const [mode, setMode] = useState<string>("linear");
 
 	const [linearData, setLinearData] = useState<NodeLinearSearch[]>([]);
@@ -40,7 +46,7 @@ const Page = () => {
 	useEffect(() => {
 		const randomArray = generateRandomArray().sort((a, b) => a - b);
 		setList(randomArray);
-		setTarget({ item: randomArray[0], index: 0 });
+		setTarget({ item: randomArray[randomArray.length - 2], index: randomArray.length - 2 });
 	}, []);
 
 	// Fetch linear and binary search data
@@ -48,8 +54,8 @@ const Page = () => {
 		const fetch = async () => {
 			if (list.length > 0) {
 				const [resLinear, resBinary] = await Promise.all([
-					getLinearSearch(list, target.item),
-					getBinarySearch(list, target.item),
+					getLinearSearch({ list, target: target.item }),
+					getBinarySearch({ list, target: target.item }),
 				]);
 				setLinearData(resLinear);
 				setBinaryData(resBinary);
@@ -62,6 +68,7 @@ const Page = () => {
 	const handleSetList = () => {
 		const randomArray = generateRandomArray().sort((a, b) => a - b);
 		setList(randomArray);
+		setTarget({ item: randomArray[randomArray.length - 2], index: randomArray.length - 2 });
 	};
 
 	const handleSetTarget = (i: { item: number; index: number }) => {
@@ -72,15 +79,32 @@ const Page = () => {
 		setMode(newMode);
 	};
 
-	// modesData
+	// modes data with initial states
 	const modesData = [
-		{ name: "linear", data: linearData, component: Linear },
-		{ name: "binary", data: binaryData, component: Binary },
+		{
+			name: "linear",
+			data: linearData,
+			component: Linear,
+			initialState: { list: list, index: 0 },
+		},
+		{
+			name: "binary",
+			data: binaryData,
+			component: Binary,
+			initialState: {
+				list: list,
+				L: 0,
+				R: list.length - 1,
+				m: Math.floor((list.length - 1) / 2),
+			},
+		},
 	];
 
 	return (
 		<div className="p-4 w-full max-w-2xl mx-auto">
-			<div className="flex-1 p-2 mb-2 border-b-2 border-gray-200">
+			<p className="w-full text-center text-md font-bold">Search</p>
+			<p className="w-full text-xs px-2 italic">Select a number</p>
+			<div className="flex-1 px-2 mb-2 border-b-2 border-gray-200">
 				<ul className="w-full flex justify-between py-2">
 					{leftBracket}
 					{list.map((item, key) => {
@@ -124,7 +148,13 @@ const Page = () => {
 			<div>
 				{modesData.map((m, index) => {
 					if (mode === m.name && m.data !== undefined) {
-						return <AnimationHandler key={index} data={m.data} Component={m.component} />;
+						return (
+							<AnimationHandler
+								key={index}
+								data={{ frames: m.data, target: target.item, initialState: m.initialState }}
+								Component={m.component}
+							/>
+						);
 					} else {
 						return <></>;
 					}

@@ -1,12 +1,15 @@
+"use client";
+
 import React from "react";
 import { NodeBinarySearch } from "../../../../types/typesSearch";
 
 interface BinearProps {
 	node: NodeBinarySearch;
+	target: number;
 }
 
-const Binary = ({ node }: BinearProps) => {
-	const { list, target, L, R, m } = node;
+const Binary = ({ node, target }: BinearProps) => {
+	const { list, L, R, m } = node;
 
 	function getBarStyle(
 		item: number,
